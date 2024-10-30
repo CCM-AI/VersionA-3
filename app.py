@@ -224,29 +224,23 @@ with tab5:
             steps = ""
             if risk == "High":
                 steps = (
-                    "### Care Plan for High Risk\n"
-                    "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
-                    "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins. **Expected Outcome**: Improved cardiovascular health within 3 months.\n"
-                    "- **Step 3**: Increase physical activity to at least 150 minutes of moderate exercise per week. **Expected Outcome**: Weight loss and reduced blood pressure within 1-3 months.\n"
-                    "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. **Expected Outcome**: Identify and manage hypertension and hyperlipidemia early.\n"
-                    "- **Step 5**: Join a support group or online community for motivation. **Expected Outcome**: Increased adherence to lifestyle changes.\n"
+                    "1. Schedule an appointment with your healthcare provider.\n"
+                    "2. Follow a heart-healthy diet and increase physical activity.\n"
+                    "3. Monitor your blood pressure and cholesterol levels.\n"
+                    "4. Join a support group.\n"
                 )
             elif risk == "Moderate":
                 steps = (
-                    "### Care Plan for Moderate Risk\n"
-                    "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
-                    "- **Step 2**: Implement dietary changes focusing on reducing sodium and sugar intake. **Expected Outcome**: Stabilization of blood sugar levels within 3 months.\n"
-                    "- **Step 3**: Aim for at least 30 minutes of exercise most days of the week. **Expected Outcome**: Improved fitness level and weight management over 3-6 months.\n"
-                    "- **Step 4**: Track your weight and blood pressure at home. **Expected Outcome**: Increased awareness of health metrics.\n"
-                    "- **Step 5**: Learn more about your condition through educational resources. **Expected Outcome**: Improved self-management of diabetes.\n"
+                    "1. Schedule a follow-up appointment.\n"
+                    "2. Implement dietary changes.\n"
+                    "3. Aim for at least 30 minutes of exercise.\n"
+                    "4. Track your weight and blood pressure.\n"
                 )
             else:
                 steps = (
-                    "### Care Plan for Low Risk\n"
-                    "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
-                    "- **Step 2**: Maintain a balanced diet and active lifestyle. **Expected Outcome**: Sustained health and well-being.\n"
-                    "- **Step 3**: Monitor your health regularly, including blood pressure and weight. **Expected Outcome**: Prevention of chronic diseases.\n"
-                    "- **Step 4**: Stay informed about your health condition through reliable sources. **Expected Outcome**: Empowerment in personal health management.\n"
+                    "1. Schedule an annual check-up.\n"
+                    "2. Maintain a balanced diet and active lifestyle.\n"
+                    "3. Monitor your health regularly.\n"
                 )
 
             care_plan_data["Condition"].append(condition)
