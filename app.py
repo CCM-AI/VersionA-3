@@ -29,17 +29,45 @@ def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use
 def ai_assistant_response(query, results):
     # Example response structure, should be replaced with actual AI logic
     responses = {
-        "Cardiovascular": "Consider lifestyle modifications, blood pressure monitoring, and medication adjustments as per AHA guidelines.",
-        "Diabetes": "Focus on dietary changes, regular glucose monitoring, and HbA1c management based on ADA recommendations.",
-        "COPD": "Implement smoking cessation, pulmonary rehabilitation, and inhaler technique assessments.",
-        "Asthma": "Ensure adherence to a personalized asthma action plan and regular follow-ups for medication management."
+        "Cardiovascular": (
+            "Consider lifestyle modifications, blood pressure monitoring, and medication adjustments as per AHA guidelines.\n"
+            "Recommendations include:\n"
+            "- Follow a heart-healthy diet rich in fruits, vegetables, and whole grains.\n"
+            "- Engage in regular physical activity (150 minutes of moderate exercise per week).\n"
+            "- Monitor blood pressure and cholesterol levels regularly.\n"
+            "- Discuss potential medications like statins or antihypertensives with your provider."
+        ),
+        "Diabetes": (
+            "Focus on dietary changes, regular glucose monitoring, and HbA1c management based on ADA recommendations.\n"
+            "Recommendations include:\n"
+            "- Implement a balanced diet with controlled carbohydrate intake.\n"
+            "- Monitor blood glucose levels regularly to understand trends and manage insulin use.\n"
+            "- Engage in at least 150 minutes of moderate exercise weekly.\n"
+            "- Regular follow-ups to adjust medication as needed."
+        ),
+        "COPD": (
+            "Implement smoking cessation, pulmonary rehabilitation, and inhaler technique assessments.\n"
+            "Recommendations include:\n"
+            "- Engage in a smoking cessation program if applicable.\n"
+            "- Participate in pulmonary rehabilitation to improve lung function.\n"
+            "- Monitor for exacerbations and have a plan in place for managing them.\n"
+            "- Regular use of prescribed inhalers and medications."
+        ),
+        "Asthma": (
+            "Ensure adherence to a personalized asthma action plan and regular follow-ups for medication management.\n"
+            "Recommendations include:\n"
+            "- Identify and avoid triggers that worsen symptoms.\n"
+            "- Use medications as prescribed and monitor symptoms daily.\n"
+            "- Keep a rescue inhaler available at all times.\n"
+            "- Schedule regular check-ups to review medication and asthma control."
+        )
     }
     
     combined_response = []
     for condition in results.keys():
         combined_response.append(f"{condition}: {responses.get(condition, 'No specific guidance available.')}")
     
-    return "\n".join(combined_response)
+    return "\n\n".join(combined_response)
 
 # Initialize Streamlit app
 st.title("Chronic Care Management Tool")
@@ -115,29 +143,27 @@ with tab5:
             st.write(f"#### {condition} - {risk} Risk")
 
             if risk == "High":
-                st.write(f"**Your Management Plan for {condition}:**")
+                st.write(f"**Your Management Plan for {condition:**")
                 st.write("- **Step 1**: Schedule an appointment with your healthcare provider to discuss treatment options and medications.")
                 st.write("- **Step 2**: Follow a tailored diet plan (e.g., low-sodium for heart conditions, low-sugar for diabetes).")
                 st.write("- **Step 3**: Engage in regular physical activity, aiming for at least 150 minutes of moderate exercise weekly.")
-                st.write("- **Step 4**: Monitor your condition closely with the help of your healthcare team, and keep track of symptoms or changes.")
-                st.write("- **Step 5**: Attend follow-up appointments every 1-3 months as recommended.")
-                st.write("- **Helpful Resources**: Here are some links to help you understand your condition and management better:")
-                st.write("  - [Heart Health Resources](https://www.heart.org/en/health-topics/heart-attack) (for cardiovascular risks)")
-                st.write("  - [Diabetes Education](https://www.diabetes.org/diabetes) (for diabetes management)")
-                st.write("  - [COPD Support](https://www.copdsupport.com) (for COPD management)")
-                st.write("  - [Asthma Management](https://www.aafa.org/asthma/) (for asthma management)")
-
-            elif risk == "Moderate":
-                st.write(f"**Your Management Plan for {condition}:**")
-                st.write("- **Step 1**: Schedule a regular check-up with your healthcare provider to monitor your condition.")
-                st.write("- **Step 2**: Adopt healthy lifestyle changes, including a balanced diet and regular exercise.")
-                st.write("- **Step 3**: Keep a symptom diary to track any changes or triggers.")
-                st.write("- **Step 4**: Consider joining a support group or educational session for additional help.")
-                st.write("- **Helpful Resources**: Explore these links for more information:")
+                st.write("- **Step 4**: Monitor your condition closely, using any prescribed tools or devices.")
+                st.write("- **Helpful Resources**: Check these links for more information:")
                 st.write("  - [Heart Disease Prevention](https://www.heart.org/en/healthy-living) (for cardiovascular risks)")
                 st.write("  - [Understanding Diabetes](https://www.diabetes.org/diabetes) (for diabetes management)")
                 st.write("  - [Managing COPD](https://www.copd.net) (for COPD management)")
                 st.write("  - [Asthma Basics](https://www.aafa.org/asthma-basics/) (for asthma management)")
+
+            elif risk == "Moderate":
+                st.write(f"**Your Management Plan for {condition}:**")
+                st.write("- **Step 1**: Continue with regular check-ups and monitor your symptoms.")
+                st.write("- **Step 2**: Implement lifestyle changes, such as a balanced diet and increased physical activity.")
+                st.write("- **Step 3**: Educate yourself about your condition and its management.")
+                st.write("- **Helpful Resources**: Check these links to enhance your knowledge:")
+                st.write("  - [Heart Health](https://www.heart.org/en/healthy-living) (for cardiovascular wellness)")
+                st.write("  - [Diabetes Basics](https://www.diabetes.org) (for diabetes education)")
+                st.write("  - [COPD Information](https://www.copd.net) (for COPD awareness)")
+                st.write("  - [Asthma Tips](https://www.aafa.org/asthma-tips/) (for asthma management)")
 
             else:  # Low Risk
                 st.write(f"**Your Management Plan for {condition}:**")
@@ -149,7 +175,7 @@ with tab5:
                 st.write("  - [COPD Information](https://www.copd.net) (for COPD awareness)")
                 st.write("  - [Asthma Tips](https://www.aafa.org/asthma-tips/) (for asthma management)")
 
-# AI Assistant Tab (remains unchanged)
+# AI Assistant Tab
 with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider Guidance", expanded=True):
     st.header("AI Assistant for Risk Management and Care Guidance")
     query = st.text_input("Ask the AI Assistant about risk management, personalized care, or guidelines:")
@@ -159,3 +185,11 @@ with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider 
             st.write(ai_response)
         else:
             st.write("Please complete risk assessments in previous tabs first.")
+
+# Footer Section
+st.write("---")
+st.header("Feedback and Support")
+st.write("We value your feedback! Please let us know how we can improve this application or if you need further assistance.")
+feedback = st.text_area("Your Feedback:", height=100)
+if st.button("Submit Feedback"):
+    st.success("Thank you for your feedback!")
