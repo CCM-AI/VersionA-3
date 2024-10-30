@@ -130,65 +130,55 @@ def patient_friendly_care_plan(results):
         else:
             care_steps += (
                 "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
-                "- **Step 2**: Maintain a balanced diet with plenty of fruits and vegetables.\n"
-                "- **Step 3**: Engage in regular physical activity, aiming for at least 150 minutes a week.\n"
-                "- **Step 4**: Monitor any symptoms and keep a journal of your health.\n"
-                "- **Step 5**: Stay informed about your health condition by reading credible sources.\n"
+                "- **Step 2**: Maintain a balanced diet and engage in regular physical activity.\n"
+                "- **Step 3**: Monitor your health metrics as advised by your provider.\n"
+                "- **Step 4**: Stay informed by reading about your condition. Here’s a good [resource](https://example.com/information).\n"
+                "- **Step 5**: Reach out for help if you feel overwhelmed.\n"
             )
 
         care_plan.append(care_steps)
 
     return "\n\n".join(care_plan)
 
-# Main Streamlit app
-st.title("Health Risk Assessment and Management")
+# Streamlit App
+st.title("Personalized Care Plan Generator")
 
-# User Input Section
 st.header("Patient Information")
-age = st.number_input("Enter age:", min_value=0, max_value=120, value=30)
-systolic_bp = st.number_input("Enter systolic blood pressure:", min_value=80, max_value=200, value=120)
-smoker = st.radio("Do you smoke?", ("Yes", "No")) == "Yes"
-cholesterol = st.number_input("Enter cholesterol level:", min_value=100, max_value=300, value=200)
+age = st.number_input("Age", min_value=0, max_value=120)
+systolic_bp = st.number_input("Systolic Blood Pressure", min_value=80, max_value=250)
+smoker = st.checkbox("Smoker")
+cholesterol = st.number_input("Cholesterol Level", min_value=100, max_value=300)
+bmi = st.number_input("BMI", min_value=10.0, max_value=60.0, step=0.1)
+family_history = st.checkbox("Family History of Diabetes")
+fasting_glucose = st.number_input("Fasting Glucose", min_value=70, max_value=300)
+hba1c = st.number_input("HbA1c", min_value=4.0, max_value=15.0, step=0.1)
+smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=50)
+fev1 = st.number_input("FEV1", min_value=0, max_value=10.0, step=0.1)
+exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10)
+frequency_of_symptoms = st.number_input("Frequency of Symptoms (Days/Week)", min_value=0, max_value=7)
+nighttime_symptoms = st.number_input("Nighttime Symptoms (Days/Month)", min_value=0, max_value=30)
+inhaler_use = st.number_input("Inhaler Use (Days/Month)", min_value=0, max_value=30)
+eosinophil_count = st.number_input("Eosinophil Count", min_value=0, max_value=1000)
 
-bmi = st.number_input("Enter BMI:", min_value=10.0, max_value=60.0, value=25.0)
-family_history = st.radio("Family history of diabetes?", ("Yes", "No")) == "Yes"
-fasting_glucose = st.number_input("Enter fasting glucose level:", min_value=70, max_value=300, value=100)
-hba1c = st.number_input("Enter HbA1c level:", min_value=4.0, max_value=14.0, value=5.5)
-
-smoking_years = st.number_input("Enter years of smoking:", min_value=0, max_value=100, value=0)
-fev1 = st.number_input("Enter FEV1 percentage:", min_value=20, max_value=120, value=80)
-exacerbations_last_year = st.number_input("Enter exacerbations in the last year:", min_value=0, max_value=20, value=0)
-
-frequency_of_symptoms = st.number_input("Enter frequency of asthma symptoms per week:", min_value=0, max_value=10, value=0)
-nighttime_symptoms = st.number_input("Enter nighttime asthma symptoms per month:", min_value=0, max_value=10, value=0)
-inhaler_use = st.number_input("Enter number of rescue inhaler uses per week:", min_value=0, max_value=20, value=0)
-eosinophil_count = st.number_input("Enter eosinophil count:", min_value=0, max_value=1000, value=300)
-
-if st.button("Assess Risk"):
-    # Risk Assessment
-    cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
-    diabetes_risk = calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c)
-    copd_risk = calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year)
-    asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count)
-
-    risk_results = {
-        "Cardiovascular": cardio_risk,
-        "Diabetes": diabetes_risk,
-        "COPD": copd_risk,
-        "Asthma": asthma_risk,
+if st.button("Generate Care Plan"):
+    results = {
+        "Cardiovascular": calculate_cardio_risk(age, systolic_bp, smoker, cholesterol),
+        "Diabetes": calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c),
+        "COPD": calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year),
+        "Asthma": calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count)
     }
 
-    # Display Results
-    st.header("Risk Assessment Results")
-    for condition, risk in risk_results.items():
-        st.write(f"{condition} Risk: {risk}")
+    # Display results
+    st.subheader("Risk Assessment Results")
+    for condition, risk in results.items():
+        st.write(f"**{condition} Risk Level**: {risk}")
 
-    # AI Assistant Response
-    st.header("AI Assistant Response")
-    ai_response = ai_assistant_response("Provide care plan based on risks", risk_results)
+    # AI Assistant response
+    st.subheader("AI Assistant Response")
+    ai_response = ai_assistant_response("Provide a detailed care plan based on risk levels", results)
     st.markdown(ai_response)
 
-    # Patient-Friendly Care Plan
-    st.header("Patient-Friendly Care Plan")
-    care_plan = patient_friendly_care_plan(risk_results)
+    # Patient-friendly care plan
+    st.subheader("Patient-Friendly Care Plan")
+    care_plan = patient_friendly_care_plan(results)
     st.markdown(care_plan)
