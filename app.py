@@ -1,5 +1,4 @@
 import streamlit as st
-import webbrowser
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
