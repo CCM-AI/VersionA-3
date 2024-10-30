@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
@@ -22,72 +21,73 @@ def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use
         return "High"
     return "Moderate"
 
-# AI Assistant Function
-def ai_assistant_response(query, results):
-    responses = []
+# AI Assistant Function for Healthcare Provider Guidance
+def ai_assistant_response(condition, risk):
+    if condition == "Cardiovascular":
+        if risk == "High":
+            return (
+                "### Cardiovascular Recommendations\n"
+                "- **Management**: Initiate lifestyle changes including a heart-healthy diet (e.g., DASH diet), regular physical activity (150 minutes/week), and weight management.\n"
+                "- **Pharmacotherapy**: Consider starting antihypertensive agents and statins based on individual patient risk profiles, following AHA/ACC guidelines.\n"
+                "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor blood pressure, cholesterol levels, and overall cardiovascular health.\n"
+                "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
+                "- **Clinical Studies**: Refer to studies supporting lifestyle interventions and medication efficacy in high-risk patients."
+            )
+        else:
+            return (
+                "### Cardiovascular Recommendations\n"
+                "- **Management**: Encourage heart-healthy lifestyle changes, such as reducing sodium intake and increasing physical activity.\n"
+                "- **Monitoring**: Assess risk factors annually, with a focus on blood pressure and cholesterol levels.\n"
+            )
 
-    for condition, risk in results.items():
-        if condition == "Cardiovascular":
-            if risk == "High":
-                responses.append(
-                    "### Cardiovascular Risk Management\n"
-                    "- **Management**: Initiate lifestyle changes including a heart-healthy diet, regular physical activity, and weight management. Consider pharmacotherapy for blood pressure and cholesterol management as per AHA/ACC guidelines.\n"
-                    "- **Follow-Up**: Schedule regular follow-up visits every 3-6 months to monitor blood pressure, cholesterol levels, and overall cardiovascular health.\n"
-                    "- **Resources**: [AHA Guidelines](https://www.heart.org/-/media/Files/Health-Topics/Hypertension/2022-Hypertension-Clinical-Practice-Guidelines-Executive-Summary.pdf)\n"
-                )
-            elif risk == "Moderate":
-                responses.append(
-                    "### Cardiovascular Risk Management\n"
-                    "- **Management**: Encourage patients to adopt heart-healthy lifestyle changes such as reducing sodium intake, increasing physical activity, and maintaining a healthy weight. Monitor blood pressure and cholesterol regularly.\n"
-                    "- **Follow-Up**: Consider annual check-ups to assess risk factors.\n"
-                )
+    elif condition == "Diabetes":
+        if risk == "High":
+            return (
+                "### Diabetes Recommendations\n"
+                "- **Management**: Implement a structured diabetes management plan that includes dietary modifications (e.g., Mediterranean diet) and regular glucose monitoring.\n"
+                "- **Pharmacotherapy**: Consider starting Metformin and assess the need for additional agents as per ADA guidelines.\n"
+                "- **Follow-Up**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
+                "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
+                "- **Clinical Studies**: Review recent studies on the effectiveness of lifestyle interventions and medications."
+            )
+        else:
+            return (
+                "### Diabetes Recommendations\n"
+                "- **Management**: Advise on lifestyle changes focusing on increased physical activity and dietary modifications to reduce sugar intake.\n"
+                "- **Monitoring**: Regular monitoring of glucose levels and annual HbA1c testing."
+            )
 
-        elif condition == "Diabetes":
-            if risk == "High":
-                responses.append(
-                    "### Diabetes Risk Management\n"
-                    "- **Management**: Recommend a structured diabetes management plan including dietary modifications (e.g., DASH diet), regular blood glucose monitoring, and potential initiation of pharmacotherapy (e.g., Metformin) based on ADA guidelines.\n"
-                    "- **Follow-Up**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
-                    "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
-                )
-            elif risk == "Moderate":
-                responses.append(
-                    "### Diabetes Risk Management\n"
-                    "- **Management**: Advise patients on lifestyle changes including increased physical activity and dietary adjustments to reduce sugar and carbohydrate intake.\n"
-                    "- **Follow-Up**: Regular monitoring of blood glucose levels and annual HbA1c testing.\n"
-                )
+    elif condition == "COPD":
+        if risk == "High":
+            return (
+                "### COPD Recommendations\n"
+                "- **Management**: Initiate smoking cessation programs and pulmonary rehabilitation immediately. Consider bronchodilators and inhaled corticosteroids based on GOLD guidelines.\n"
+                "- **Follow-Up**: Schedule follow-ups every 1-3 months to monitor lung function and exacerbation history.\n"
+                "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
+                "- **Clinical Studies**: Look into studies emphasizing the role of smoking cessation in reducing COPD progression."
+            )
+        else:
+            return (
+                "### COPD Recommendations\n"
+                "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed. Educate patients on recognizing early signs of exacerbation.\n"
+                "- **Follow-Up**: Schedule biannual follow-ups to assess lung function and treatment effectiveness."
+            )
 
-        elif condition == "COPD":
-            if risk == "High":
-                responses.append(
-                    "### COPD Risk Management\n"
-                    "- **Management**: Immediate initiation of smoking cessation programs and pulmonary rehabilitation. Consider medications such as bronchodilators and corticosteroids as per GOLD guidelines.\n"
-                    "- **Follow-Up**: Schedule regular follow-ups every 1-3 months to monitor lung function and exacerbation history.\n"
-                    "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
-                )
-            elif risk == "Moderate":
-                responses.append(
-                    "### COPD Risk Management\n"
-                    "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed. Educate patients on recognizing early signs of exacerbation.\n"
-                    "- **Follow-Up**: Biannual follow-ups to assess lung function and medication effectiveness.\n"
-                )
-
-        elif condition == "Asthma":
-            if risk == "High":
-                responses.append(
-                    "### Asthma Risk Management\n"
-                    "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and educating patients about proper inhaler technique. Develop a comprehensive asthma action plan.\n"
-                    "- **Follow-Up**: Schedule visits every 1-3 months to reassess control and medication needs.\n"
-                    "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
-                )
-            elif risk == "Moderate":
-                responses.append(
-                    "### Asthma Risk Management\n"
-                    "- **Management**: Reinforce the importance of adherence to maintenance therapy and review the asthma action plan regularly.\n"
-                    "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor asthma control.\n"
-                )
-
-    return "\n\n".join(responses)
+    elif condition == "Asthma":
+        if risk == "High":
+            return (
+                "### Asthma Recommendations\n"
+                "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and developing a comprehensive asthma action plan. Ensure proper inhaler technique.\n"
+                "- **Follow-Up**: Schedule visits every 1-3 months to reassess asthma control and adjust medication as needed.\n"
+                "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
+                "- **Clinical Studies**: Review evidence on the benefits of adherence to inhaled therapies in reducing exacerbations."
+            )
+        else:
+            return (
+                "### Asthma Recommendations\n"
+                "- **Management**: Reinforce the importance of adherence to maintenance therapy and review the asthma action plan regularly.\n"
+                "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor asthma control."
+            )
 
 # Create patient-friendly care plan based on risk levels
 def patient_friendly_care_plan(results):
@@ -147,106 +147,80 @@ with tab1:
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
+        st.write(ai_assistant_response("Cardiovascular", cardio_risk))
 
         # Educational Resources
         st.write("### Educational Resources for Healthcare Providers")
-        st.write("- [AHA Guidelines on Cardiovascular Disease Management (PDF)](https://www.heart.org/-/media/Files/Health-Topics/Hypertension/2022-Hypertension-Clinical-Practice-Guidelines-Executive-Summary.pdf)")
+        st.write("- [AHA Guidelines on Cardiovascular Disease Management (PDF)](https://www.heart.org/-/media/files/professional/cardiovascular-disease/2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women.pdf)")
 
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
     bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="diabetes_age")
     family_history = st.checkbox("Family History of Diabetes", key="family_history")
-    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=70, max_value=300, value=100, key="fasting_glucose")
-    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=14.0, value=5.7, key="hba1c")
+    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=100, key="fasting_glucose")
+    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.5, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
         diabetes_risk = calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c)
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
+        st.write(ai_assistant_response("Diabetes", diabetes_risk))
 
         # Educational Resources
         st.write("### Educational Resources for Healthcare Providers")
-        st.write("- [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)")
+        st.write("- [ADA Standards of Medical Care in Diabetes (PDF)](https://diabetesjournals.org/care/article/43/Supplement_1/S1/Standards-of-Medical-Care-in-Diabetes-2020)")
 
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
     smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
-    fev1 = st.number_input("FEV1 (% predicted)", min_value=0.0, max_value=100.0, value=80.0, key="fev1")
-    exacerbations_last_year = st.number_input("Number of Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="copd_age")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
+    exacerbations_last_year = st.number_input("Exacerbations in Last Year", min_value=0, max_value=10, value=1, key="exacerbations")
 
     if st.button("Calculate COPD Risk"):
         copd_risk = calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year)
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
+        st.write(ai_assistant_response("COPD", copd_risk))
 
         # Educational Resources
         st.write("### Educational Resources for Healthcare Providers")
-        st.write("- [GOLD Guidelines](https://goldcopd.org/gold-reports/)")
+        st.write("- [GOLD Guidelines for the Management of COPD (PDF)](https://goldcopd.org/wp-content/uploads/2020/11/GOLD-2020-Report-Updated-2020-11-12-3.pdf)")
 
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.number_input("Frequency of Symptoms per Week", min_value=0, max_value=14, value=3, key="frequency_of_symptoms")
-    nighttime_symptoms = st.number_input("Nighttime Symptoms per Month", min_value=0, max_value=30, value=1, key="nighttime_symptoms")
-    inhaler_use = st.number_input("Days of Rescue Inhaler Use per Week", min_value=0, max_value=7, value=2, key="inhaler_use")
-    fev1 = st.number_input("FEV1 (% predicted)", min_value=0.0, max_value=100.0, value=80.0, key="fev1")
-    eosinophil_count = st.number_input("Eosinophil Count (cells/µL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
+    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1, key="nighttime_symptoms")
+    inhaler_use = st.slider("Inhaler Use (0-7 days/week)", 0, 7, 2, key="inhaler_use")
+    fev1_asthma = st.number_input("FEV1 (%) - Asthma", min_value=20, max_value=100, value=80, key="fev1_asthma")
+    eosinophil_count = st.number_input("Eosinophil Count (cells/μL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
-        asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count)
+        asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
         st.write(f"**Asthma Risk Level**: {asthma_risk}")
         st.session_state['results']["Asthma"] = asthma_risk
+        st.write(ai_assistant_response("Asthma", asthma_risk))
 
         # Educational Resources
         st.write("### Educational Resources for Healthcare Providers")
-        st.write("- [AAFA Guidelines](https://www.aafa.org)")
+        st.write("- [AAFA Asthma Management Guidelines (PDF)](https://aafa.org/media/2356/aafa-asthma-management-guidelines-2020.pdf)")
 
 # Unified Care Plan Tab
 with tab5:
     st.header("Unified Care Plan")
-    
-    if st.button("Generate Care Plan"):
-        care_plan_text = patient_friendly_care_plan(st.session_state['results'])
-        st.write(care_plan_text)
+    if st.session_state['results']:
+        st.write("### Suggested Patient-Friendly Care Plan")
+        patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
+        st.write(patient_care_plan)
 
-        # Visualize Care Plan in Table Format
-        care_plan_data = {
-            "Condition": [],
-            "Risk Level": [],
-            "Care Steps": []
-        }
-
-        for condition, risk in st.session_state['results'].items():
-            steps = ""
-            if risk == "High":
-                steps = (
-                    "1. Schedule an appointment with your healthcare provider.\n"
-                    "2. Follow a heart-healthy diet and increase physical activity.\n"
-                    "3. Monitor your blood pressure and cholesterol levels.\n"
-                    "4. Join a support group.\n"
-                )
-            elif risk == "Moderate":
-                steps = (
-                    "1. Schedule a follow-up appointment.\n"
-                    "2. Implement dietary changes.\n"
-                    "3. Aim for at least 30 minutes of exercise.\n"
-                    "4. Track your weight and blood pressure.\n"
-                )
-            else:
-                steps = (
-                    "1. Schedule an annual check-up.\n"
-                    "2. Maintain a balanced diet and active lifestyle.\n"
-                    "3. Monitor your health regularly.\n"
-                )
-
-            care_plan_data["Condition"].append(condition)
-            care_plan_data["Risk Level"].append(risk)
-            care_plan_data["Care Steps"].append(steps)
-
-        # Create a DataFrame and display as a table
-        care_plan_df = pd.DataFrame(care_plan_data)
-        st.table(care_plan_df)
+# Footer Section
+st.write("---")
+st.header("Feedback and Support")
+st.write("We value your feedback! Please let us know how we can improve this application or if you need further assistance.")
+feedback = st.text_area("Your Feedback:", height=100)
+if st.button("Submit Feedback"):
+    st.success("Thank you for your feedback!")
