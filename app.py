@@ -27,74 +27,97 @@ def ai_assistant_response(condition, risk):
         if risk == "High":
             return (
                 "### Cardiovascular Recommendations\n"
-                "- **Management**: Initiate lifestyle changes including a heart-healthy diet (e.g., DASH diet), regular physical activity (150 minutes/week), and weight management.\n"
-                "- **Pharmacotherapy**: Consider starting antihypertensive agents and statins based on individual patient risk profiles, following AHA/ACC guidelines.\n"
-                "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor blood pressure, cholesterol levels, and overall cardiovascular health.\n"
-                "- **Additional Recommendations**: Conduct risk factor stratification using a validated scoring system (e.g., ASCVD risk calculator).\n"
+                "- **Management**: \n"
+                "  - Initiate lifestyle changes, including:\n"
+                "    - **Diet**: Aim for a diet low in saturated fats (<7% of total calories) and high in fruits, vegetables, and whole grains. Target a daily sodium intake <2,300 mg.\n"
+                "    - **Physical Activity**: Minimum 150 minutes of moderate-intensity aerobic exercise per week.\n"
+                "  - **Pharmacotherapy**: \n"
+                "    - Start antihypertensive agents if BP >140/90 mmHg. Consider statins if LDL ≥ 190 mg/dL or 70-189 mg/dL with a 10-year ASCVD risk ≥ 20%.\n"
+                "  - **Targets**: \n"
+                "    - Achieve BP <130/80 mmHg and LDL <100 mg/dL within 6 months.\n"
+                "  - **Risk Factors to Avoid**: Smoking, excessive alcohol, high-sugar diets, sedentary lifestyle.\n"
+                "  - **Follow-Up**: Every 3-6 months to monitor progress.\n"
                 "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines) | [ASCVD Risk Calculator](https://tools.acc.org/ASCVD/Risk-Estimator-Plus/)\n"
-                "- **Clinical Studies**: Refer to studies supporting lifestyle interventions and medication efficacy in high-risk patients."
             )
         else:
             return (
                 "### Cardiovascular Recommendations\n"
-                "- **Management**: Encourage heart-healthy lifestyle changes, such as reducing sodium intake and increasing physical activity.\n"
-                "- **Monitoring**: Assess risk factors annually, with a focus on blood pressure and cholesterol levels.\n"
-                "- **Additional Recommendations**: Implement shared decision-making for patient-centered care and consider using decision aids.\n"
+                "- **Management**: \n"
+                "  - Encourage lifestyle changes focusing on:\n"
+                "    - **Diet**: Maintain sodium intake <2,300 mg, limit saturated fats, increase fiber.\n"
+                "    - **Physical Activity**: Encourage at least 150 minutes of moderate activity per week.\n"
+                "  - **Monitoring**: Check BP and cholesterol annually.\n"
+                "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
             )
 
     elif condition == "Diabetes":
         if risk == "High":
             return (
                 "### Diabetes Recommendations\n"
-                "- **Management**: Implement a structured diabetes management plan that includes dietary modifications (e.g., Mediterranean diet) and regular glucose monitoring.\n"
-                "- **Pharmacotherapy**: Consider starting Metformin and assess the need for additional agents as per ADA guidelines.\n"
-                "- **Follow-Up**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
-                "- **Additional Recommendations**: Refer patients for diabetes self-management education (DSME) programs and consider continuous glucose monitoring (CGM) for better glycemic control.\n"
+                "- **Management**: \n"
+                "  - Implement a structured management plan:\n"
+                "    - **Diet**: Follow a Mediterranean diet with a focus on whole foods, aiming for <45% of calories from carbohydrates.\n"
+                "    - **Physical Activity**: 150 minutes of moderate-intensity exercise per week.\n"
+                "  - **Pharmacotherapy**: \n"
+                "    - Start Metformin if HbA1c > 6.5%. Add GLP-1 receptor agonists or SGLT2 inhibitors as needed based on individual characteristics.\n"
+                "  - **Targets**: \n"
+                "    - Aim for HbA1c <7% within 3-6 months; fasting glucose 80-130 mg/dL.\n"
+                "  - **Risk Factors to Avoid**: High-sugar diets, sedentary lifestyle, smoking.\n"
+                "  - **Follow-Up**: Every 3 months to adjust treatment.\n"
                 "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care) | [Diabetes Education Resources](https://www.diabeteseducator.org)\n"
-                "- **Clinical Studies**: Review recent studies on the effectiveness of lifestyle interventions and medications."
             )
         else:
             return (
                 "### Diabetes Recommendations\n"
-                "- **Management**: Advise on lifestyle changes focusing on increased physical activity and dietary modifications to reduce sugar intake.\n"
-                "- **Monitoring**: Regular monitoring of glucose levels and annual HbA1c testing.\n"
-                "- **Additional Recommendations**: Implement motivational interviewing techniques to enhance patient engagement in self-management.\n"
+                "- **Management**: \n"
+                "  - Advise on lifestyle changes:\n"
+                "    - **Diet**: Maintain a balanced diet and monitor carbohydrate intake.\n"
+                "    - **Physical Activity**: Aim for 30 minutes of moderate exercise most days of the week.\n"
+                "  - **Monitoring**: Annual HbA1c testing.\n"
+                "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
             )
 
     elif condition == "COPD":
         if risk == "High":
             return (
                 "### COPD Recommendations\n"
-                "- **Management**: Initiate smoking cessation programs and pulmonary rehabilitation immediately. Consider bronchodilators and inhaled corticosteroids based on GOLD guidelines.\n"
-                "- **Follow-Up**: Schedule follow-ups every 1-3 months to monitor lung function and exacerbation history.\n"
-                "- **Additional Recommendations**: Utilize an exacerbation action plan and consider referral for lung volume reduction surgery (LVRS) for eligible patients.\n"
+                "- **Management**: \n"
+                "  - Initiate smoking cessation programs immediately. Use pharmacotherapy as needed (e.g., varenicline).\n"
+                "  - **Pharmacotherapy**: Consider long-acting bronchodilators and inhaled corticosteroids.\n"
+                "  - **Targets**: \n"
+                "    - Achieve FEV1 improvement of at least 15% within 6 months of initiating therapy.\n"
+                "  - **Risk Factors to Avoid**: Smoking, air pollution, occupational exposures.\n"
+                "  - **Follow-Up**: Every 1-3 months to monitor lung function and exacerbations.\n"
                 "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/) | [COPD Exacerbation Management Guidelines](https://www.thoracic.org/professionals/care-standards/guidelines/copd-exacerbations.php)\n"
-                "- **Clinical Studies**: Look into studies emphasizing the role of smoking cessation in reducing COPD progression."
             )
         else:
             return (
                 "### COPD Recommendations\n"
-                "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed. Educate patients on recognizing early signs of exacerbation.\n"
-                "- **Follow-Up**: Schedule biannual follow-ups to assess lung function and treatment effectiveness.\n"
-                "- **Additional Recommendations**: Incorporate education on proper inhaler technique to ensure medication efficacy.\n"
+                "- **Management**: \n"
+                "  - Encourage smoking cessation and prescribe bronchodilators as needed.\n"
+                "  - **Monitoring**: Assess lung function annually; track symptoms regularly.\n"
+                "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
             )
 
     elif condition == "Asthma":
         if risk == "High":
             return (
                 "### Asthma Recommendations\n"
-                "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and developing a comprehensive asthma action plan. Ensure proper inhaler technique.\n"
-                "- **Follow-Up**: Schedule visits every 1-3 months to reassess asthma control and adjust medication as needed.\n"
-                "- **Additional Recommendations**: Implement asthma education programs to improve self-management skills and consider allergy testing if indicated.\n"
+                "- **Management**: \n"
+                "  - Optimize controller medication (inhaled corticosteroids) and develop a comprehensive asthma action plan.\n"
+                "  - **Targets**: \n"
+                "    - Achieve symptom control with no more than 2 days of rescue inhaler use per week within 4-8 weeks.\n"
+                "  - **Risk Factors to Avoid**: Smoking, allergens (e.g., dust mites, pollen), air pollution.\n"
+                "  - **Follow-Up**: Every 1-3 months to reassess control and medication needs.\n"
                 "- **Resources**: [AAFA Guidelines](https://www.aafa.org) | [NHLBI Asthma Guidelines](https://www.nhlbi.nih.gov/health-topics/asthma)\n"
-                "- **Clinical Studies**: Review evidence on the benefits of adherence to inhaled therapies in reducing exacerbations."
             )
         else:
             return (
                 "### Asthma Recommendations\n"
-                "- **Management**: Reinforce the importance of adherence to maintenance therapy and review the asthma action plan regularly.\n"
-                "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor asthma control.\n"
-                "- **Additional Recommendations**: Encourage a home asthma monitoring plan, including peak flow monitoring to assess control.\n"
+                "- **Management**: \n"
+                "  - Reinforce adherence to maintenance therapy and review the asthma action plan regularly.\n"
+                "  - **Monitoring**: Schedule follow-ups every 3-6 months.\n"
+                "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
             )
 
 # Create patient-friendly care plan based on risk levels
@@ -107,25 +130,18 @@ def patient_friendly_care_plan(results):
         if risk == "High":
             care_steps += (
                 "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
-                "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins. Here’s a helpful [video on heart-healthy diets](https://www.youtube.com/watch?v=example1).\n"
+                "- **Step 2**: Start a heart-healthy diet focusing on fruits, vegetables, whole grains, and lean proteins. Here’s a helpful [video on heart-healthy diets](https://www.youtube.com/watch?v=example1).\n"
                 "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week. Here’s a [guide to starting exercise](https://www.youtube.com/watch?v=example2).\n"
                 "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. Use this [blood pressure log template](https://example.com/log-template).\n"
                 "- **Step 5**: Join a support group or online community for motivation. Here’s a list of resources: [Support Groups](https://example.com/support-groups).\n"
             )
         elif risk == "Moderate":
             care_steps += (
-                "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
-                "- **Step 2**: Implement dietary changes focusing on reducing sodium and sugar intake. Check out this [diet tips video](https://www.youtube.com/watch?v=example3).\n"
-                "- **Step 3**: Aim for at least 30 minutes of exercise most days of the week. Here’s a [simple exercise routine](https://www.youtube.com/watch?v=example4).\n"
-                "- **Step 4**: Track your weight and blood pressure at home. Use this [tracking app](https://example.com/app).\n"
-                "- **Step 5**: Learn more about your condition through these [educational resources](https://example.com/education).\n"
-            )
-        else:
-            care_steps += (
-                "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
-                "- **Step 2**: Maintain a balanced diet and active lifestyle. Here’s a [general health tips video](https://www.youtube.com/watch?v=example5).\n"
-                "- **Step 3**: Monitor your health regularly, including blood pressure and weight. Consider using a [health app](https://example.com/app).\n"
-                "- **Step 4**: Stay informed about your health condition through reliable sources. Here are some [trusted websites](https://example.com/trusted-websites).\n"
+                "- **Step 1**: Follow up with your healthcare provider within the next month.\n"
+                "- **Step 2**: Continue a balanced diet and stay active. Consider keeping a food diary.\n"
+                "- **Step 3**: Aim to get at least 30 minutes of exercise most days.\n"
+                "- **Step 4**: Monitor your symptoms and report any changes to your provider.\n"
+                "- **Step 5**: Educate yourself about your condition using reliable sources like the [CDC](https://www.cdc.gov) or [Mayo Clinic](https://www.mayoclinic.org).\n"
             )
 
         care_plan.append(care_steps)
