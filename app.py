@@ -102,10 +102,10 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Cardiovascular Risk", "Diabetes R
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
-    age = st.number_input("Age", min_value=18, max_value=100, value=30)
-    systolic_bp = st.slider("Systolic Blood Pressure (mmHg)", 90, 200, 120)
-    cholesterol = st.slider("Total Cholesterol (mg/dL)", 100, 300, 180)
-    smoker = st.radio("Smoking Status", options=["Non-smoker", "Current smoker"])
+    age = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_cardio")
+    systolic_bp = st.slider("Systolic Blood Pressure (mmHg)", 90, 200, 120, key="systolic_bp")
+    cholesterol = st.slider("Total Cholesterol (mg/dL)", 100, 300, 180, key="cholesterol")
+    smoker = st.radio("Smoking Status", options=["Non-smoker", "Current smoker"], key="smoker")
 
     if st.button("Calculate Cardiovascular Risk"):
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker == "Current smoker", cholesterol)
@@ -115,10 +115,10 @@ with tab1:
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
-    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=22.0)
-    family_history = st.radio("Family History of Diabetes", options=["Yes", "No"])
-    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=90)
-    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.6)
+    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=22.0, key="bmi")
+    family_history = st.radio("Family History of Diabetes", options=["Yes", "No"], key="family_history")
+    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=90, key="fasting_glucose")
+    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.6, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
         diabetes_risk = calculate_diabetes_risk(bmi, age, family_history == "Yes", fasting_glucose, hba1c)
@@ -128,10 +128,10 @@ with tab2:
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
-    smoking_years = st.number_input("Years of Smoking (if applicable)", min_value=0, max_value=100, value=10)
-    age_copd = st.number_input("Age", min_value=18, max_value=100, value=30)
-    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80)
-    exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1)
+    smoking_years = st.number_input("Years Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
+    age_copd = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_copd")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
+    exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
     if st.button("Calculate COPD Risk"):
         copd_risk = calculate_copd_risk(smoking_years, age_copd, fev1, exacerbations_last_year)
@@ -141,11 +141,11 @@ with tab3:
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2)
-    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1)
-    inhaler_use = st.slider("Inhaler Use (0-7 days/week)", 0, 7, 2)
-    fev1_asthma = st.number_input("FEV1 (%) - Asthma", min_value=20, max_value=100, value=80)
-    eosinophil_count = st.number_input("Eosinophil Count (cells/μL)", min_value=0, max_value=1000, value=300)
+    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1, key="nighttime_symptoms")
+    inhaler_use = st.slider("Inhaler Use (0-7 days/week)", 0, 7, 2, key="inhaler_use")
+    fev1_asthma = st.number_input("FEV1 (%) - Asthma", min_value=20, max_value=100, value=80, key="fev1_asthma")
+    eosinophil_count = st.number_input("Eosinophil Count (cells/μL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
         asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
