@@ -97,124 +97,51 @@ def patient_friendly_care_plan(results):
         care_steps = f"### Care Plan for {condition} - Risk Level: {risk}\n"
         
         if risk == "High":
-            if condition == "Cardiovascular":
-                care_steps += (
-                    "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
-                    "- **Step 2**: Start a heart-healthy diet:\n"
-                    "  - **Figures**: Aim for at least 5 servings of fruits and vegetables per day.\n"
-                    "  - **Expected Outcome**: Reduce cholesterol by approximately 10-20% in 6 months.\n"
-                    "- **Step 3**: Increase your physical activity:\n"
-                    "  - **Figures**: 150 minutes of moderate exercise per week (e.g., brisk walking).\n"
-                    "  - **Expected Outcome**: Improve cardiovascular fitness and lower blood pressure.\n"
-                    "- **Step 4**: Monitor your weight:\n"
-                    "  - **Figures**: Aim for a weight loss of 5-10% of your body weight within 6 months.\n"
-                    "  - **Expected Outcome**: Lower BMI, reducing risk factors for heart disease.\n"
-                    "- **Step 5**: If you smoke, quit:\n"
-                    "  - **Figures**: Smoking cessation programs can improve your cardiovascular health within weeks.\n"
-                    "  - **Expected Outcome**: Decreased risk of heart attack and stroke.\n"
-                    "- **Step 6**: Join a support group or online community for motivation. Here’s a list of resources: [Support Groups](https://example.com/support-groups).\n"
-                )
-            elif condition == "Diabetes":
-                care_steps += (
-                    "- **Step 1**: Schedule a diabetes education appointment within the next week.\n"
-                    "- **Step 2**: Dietary modifications:\n"
-                    "  - **Figures**: Aim for 3 meals and 2-3 snacks daily to maintain stable blood glucose levels.\n"
-                    "  - **Expected Outcome**: Reduced HbA1c by 1-2% within 3 months.\n"
-                    "- **Step 3**: Regular blood glucose monitoring:\n"
-                    "  - **Figures**: Check blood glucose 1-2 hours after meals.\n"
-                    "  - **Expected Outcome**: Better control of blood sugar levels.\n"
-                    "- **Step 4**: Increase physical activity:\n"
-                    "  - **Figures**: 150 minutes of moderate exercise per week (e.g., cycling, swimming).\n"
-                    "  - **Expected Outcome**: Improved insulin sensitivity and weight management.\n"
-                    "- **Step 5**: If overweight, aim for a weight loss of 5-7% of total body weight in 6 months.\n"
-                    "  - **Expected Outcome**: Lowered risk of diabetes complications.\n"
-                    "- **Step 6**: Learn more about your condition through these [educational resources](https://example.com/education).\n"
-                )
-            elif condition == "COPD":
-                care_steps += (
-                    "- **Step 1**: Schedule a pulmonary rehabilitation program within the next week.\n"
-                    "- **Step 2**: Smoking cessation:\n"
-                    "  - **Figures**: Use nicotine replacement therapy or medications (e.g., varenicline).\n"
-                    "  - **Expected Outcome**: Improved lung function and reduced symptoms within weeks.\n"
-                    "- **Step 3**: Regular exercise:\n"
-                    "  - **Figures**: Engage in 30 minutes of physical activity 3-5 times a week.\n"
-                    "  - **Expected Outcome**: Increased exercise tolerance and improved quality of life.\n"
-                    "- **Step 4**: Nutrition management:\n"
-                    "  - **Figures**: Maintain a well-balanced diet rich in antioxidants (fruits and vegetables).\n"
-                    "  - **Expected Outcome**: Better overall health and decreased exacerbations.\n"
-                    "- **Step 5**: Monitor symptoms and seek medical advice for any exacerbation signs.\n"
-                )
-            elif condition == "Asthma":
-                care_steps += (
-                    "- **Step 1**: Schedule an appointment with your healthcare provider to review your asthma action plan.\n"
-                    "- **Step 2**: Medication adherence:\n"
-                    "  - **Figures**: Use inhaled corticosteroids daily as prescribed.\n"
-                    "  - **Expected Outcome**: Reduced frequency and severity of asthma attacks.\n"
-                    "- **Step 3**: Recognize triggers:\n"
-                    "  - **Figures**: Identify and avoid at least 3 personal asthma triggers (e.g., allergens, smoke).\n"
-                    "  - **Expected Outcome**: Improved asthma control and reduced medication need.\n"
-                    "- **Step 4**: Maintain a healthy weight:\n"
-                    "  - **Figures**: Aim for a healthy BMI (18.5-24.9).\n"
-                    "  - **Expected Outcome**: Decreased risk of asthma complications.\n"
-                    "- **Step 5**: Regular follow-up appointments every 3-6 months to assess asthma control.\n"
-                )
+            care_steps += (
+                "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
+                "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins. Here’s a helpful [video on heart-healthy diets](https://www.youtube.com/watch?v=example1).\n"
+                "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week. Here’s a [guide to starting exercise](https://www.youtube.com/watch?v=example2).\n"
+                "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. Use this [blood pressure log template](https://example.com/log-template).\n"
+                "- **Step 5**: Join a support group or online community for motivation. Here’s a list of resources: [Support Groups](https://example.com/support-groups).\n"
+            )
         elif risk == "Moderate":
-            if condition == "Cardiovascular":
-                care_steps += (
-                    "- **Step 1**: Schedule a follow-up appointment in the next month.\n"
-                    "- **Step 2**: Implement dietary changes:\n"
-                    "  - **Figures**: Reduce saturated fat intake to less than 7% of total calories.\n"
-                    "  - **Expected Outcome**: Gradual improvement in cholesterol levels.\n"
-                    "- **Step 3**: Exercise regularly:\n"
-                    "  - **Figures**: 30 minutes of moderate exercise at least 5 days a week.\n"
-                    "  - **Expected Outcome**: Improved cardiovascular health over time.\n"
-                    "- **Step 4**: Monitor weight regularly and aim for a stable weight.\n"
-                )
-            elif condition == "Diabetes":
-                care_steps += (
-                    "- **Step 1**: Schedule an annual diabetes check-up.\n"
-                    "- **Step 2**: Dietary modifications:\n"
-                    "  - **Figures**: Limit processed sugars to no more than 10% of daily caloric intake.\n"
-                    "  - **Expected Outcome**: Improved blood glucose levels gradually.\n"
-                    "- **Step 3**: Regular physical activity:\n"
-                    "  - **Figures**: 150 minutes of moderate exercise weekly.\n"
-                    "  - **Expected Outcome**: Enhanced insulin sensitivity and weight maintenance.\n"
-                )
-            elif condition == "COPD":
-                care_steps += (
-                    "- **Step 1**: Schedule a check-up every 6 months.\n"
-                    "- **Step 2**: Encourage smoking cessation efforts:\n"
-                    "  - **Figures**: Use support groups or counseling.\n"
-                    "  - **Expected Outcome**: Improved lung health over time.\n"
-                )
-            elif condition == "Asthma":
-                care_steps += (
-                    "- **Step 1**: Schedule a follow-up visit every 3-6 months.\n"
-                    "- **Step 2**: Review inhaler technique regularly.\n"
-                    "  - **Figures**: Practice at least once a week to ensure correct use.\n"
-                    "  - **Expected Outcome**: Reduced asthma symptoms and medication use.\n"
-                )
-
+            care_steps += (
+                "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
+                "- **Step 2**: Implement dietary changes focusing on reducing sodium and sugar intake. Check out this [diet tips video](https://www.youtube.com/watch?v=example3).\n"
+                "- **Step 3**: Aim for at least 30 minutes of exercise most days of the week. Here’s a [simple exercise routine](https://www.youtube.com/watch?v=example4).\n"
+                "- **Step 4**: Track your weight and blood pressure at home. Use this [tracking app](https://example.com/app).\n"
+                "- **Step 5**: Learn more about your condition through these [educational resources](https://example.com/education).\n"
+            )
+        else:
+            care_steps += (
+                "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
+                "- **Step 2**: Maintain a balanced diet and active lifestyle. Here’s a [general health tips video](https://www.youtube.com/watch?v=example5).\n"
+                "- **Step 3**: Monitor your health regularly, including blood pressure and weight. Consider using a [health app](https://example.com/app).\n"
+                "- **Step 4**: Stay informed about your health condition through reliable sources. Here are some [trusted websites](https://example.com/trusted-websites).\n"
+            )
+        
         care_plan.append(care_steps)
 
     return "\n\n".join(care_plan)
 
-# Streamlit Application Layout
-st.title("Healthcare Provider Risk Assessment and Care Plan")
+# Initialize Streamlit app
+st.title("Chronic Care Management Tool")
+st.write("This application helps assess risks for various chronic conditions and provides personalized care plans.")
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk Assessment", "Diabetes Risk Assessment", "COPD Risk Assessment", "Asthma Risk Assessment", "Unified Care Plan"])
-
-# Store results in session state
+# Initialize session state for results
 if 'results' not in st.session_state:
     st.session_state['results'] = {}
+
+# Risk Assessment Tabs
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan"])
 
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
     age_cardiovascular = st.number_input("Age", min_value=18, max_value=120, value=50, key="age_cardiovascular")
-    systolic_bp = st.number_input("Systolic Blood Pressure", min_value=90, max_value=200, value=120, key="systolic_bp")
-    smoker = st.checkbox("Current Smoker", key="smoker")
-    cholesterol = st.number_input("Total Cholesterol", min_value=100, max_value=300, value=200, key="cholesterol")
+    systolic_bp = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80, max_value=200, value=120, key="systolic_bp")
+    cholesterol = st.number_input("Cholesterol (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
+    smoker = st.checkbox("Smoker", key="smoker")
 
     if st.button("Calculate Cardiovascular Risk"):
         cardio_risk = calculate_cardio_risk(age_cardiovascular, systolic_bp, smoker, cholesterol)
@@ -281,17 +208,51 @@ with tab4:
 # Unified Care Plan Tab
 with tab5:
     st.header("Unified Care Plan")
+    
+    if st.button("Generate Care Plan"):
+        care_plan_text = patient_friendly_care_plan(st.session_state['results'])
+        st.write(care_plan_text)
 
-    if st.session_state['results']:
-        st.write("### Multidisciplinary Recommendations")
-        recommendations = ai_assistant_response("Generate multidisciplinary recommendations", st.session_state['results'])
-        st.write(recommendations)
+        # Visualize Care Plan in Table Format
+        care_plan_data = {
+            "Condition": [],
+            "Risk Level": [],
+            "Care Steps": []
+        }
 
-        st.write("### Patient-Friendly Care Steps")
-        care_plan = patient_friendly_care_plan(st.session_state['results'])
-        st.write(care_plan)
+        for condition, risk in st.session_state['results'].items():
+            steps = ""
+            if risk == "High":
+                steps = (
+                    "### Care Plan for High Risk\n"
+                    "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
+                    "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins. **Expected Outcome**: Improved cardiovascular health within 3 months.\n"
+                    "- **Step 3**: Increase physical activity to at least 150 minutes of moderate exercise per week. **Expected Outcome**: Weight loss and reduced blood pressure within 1-3 months.\n"
+                    "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. **Expected Outcome**: Identify and manage hypertension and hyperlipidemia early.\n"
+                    "- **Step 5**: Join a support group or online community for motivation. **Expected Outcome**: Increased adherence to lifestyle changes.\n"
+                )
+            elif risk == "Moderate":
+                steps = (
+                    "### Care Plan for Moderate Risk\n"
+                    "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
+                    "- **Step 2**: Implement dietary changes focusing on reducing sodium and sugar intake. **Expected Outcome**: Stabilization of blood sugar levels within 3 months.\n"
+                    "- **Step 3**: Aim for at least 30 minutes of exercise most days of the week. **Expected Outcome**: Improved fitness level and weight management over 3-6 months.\n"
+                    "- **Step 4**: Track your weight and blood pressure at home. **Expected Outcome**: Increased awareness of health metrics.\n"
+                    "- **Step 5**: Learn more about your condition through educational resources. **Expected Outcome**: Improved self-management of diabetes.\n"
+                )
+            else:
+                steps = (
+                    "### Care Plan for Low Risk\n"
+                    "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
+                    "- **Step 2**: Maintain a balanced diet and active lifestyle. **Expected Outcome**: Sustained health and well-being.\n"
+                    "- **Step 3**: Monitor your health regularly, including blood pressure and weight. **Expected Outcome**: Prevention of chronic diseases.\n"
+                    "- **Step 4**: Stay informed about your health condition through reliable sources. **Expected Outcome**: Empowerment in personal health management.\n"
+                )
 
-    else:
-        st.write("Please complete the assessments in the previous tabs to view the Unified Care Plan.")
+            care_plan_data["Condition"].append(condition)
+            care_plan_data["Risk Level"].append(risk)
+            care_plan_data["Care Steps"].append(steps)
 
-# End of Streamlit Application
+        # Create a DataFrame and display as a table
+        care_plan_df = pd.DataFrame(care_plan_data)
+        st.table(care_plan_df)
