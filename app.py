@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
@@ -201,8 +200,8 @@ def create_unified_care_plan_table(condition, risk):
                 "Time Frame": ["Ongoing"],
                 "Monitoring": ["Biannually"],
                 "Notes": [
-                    "Avoid smoking.",
-                    "Use prescribed inhalers as directed."
+                    "Continue avoiding smoking.",
+                    "Engage in light exercises."
                 ]
             }
 
@@ -230,6 +229,13 @@ def create_unified_care_plan_table(condition, risk):
                     "Avoid known triggers."
                 ]
             }
+
+    # Ensure all lists are of the same length
+    max_length = max(len(data["Target"]), len(data["Goal"]), len(data["Time Frame"]), len(data["Monitoring"]), len(data["Notes"]))
+    
+    for key in data.keys():
+        while len(data[key]) < max_length:
+            data[key].append("")
 
     return pd.DataFrame(data)
 
