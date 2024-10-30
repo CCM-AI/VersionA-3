@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
@@ -128,57 +129,96 @@ def patient_friendly_care_plan(results):
 
     return "\n\n".join(care_plan)
 
-# Function to create a unified care plan plot using Streamlit's line_chart
-def plot_unified_care_plan(condition, risk):
-    x = np.arange(1, 7)
+# Function to create a unified care plan table
+def create_unified_care_plan_table(condition, risk):
     if condition == "Cardiovascular":
         if risk == "High":
-            y = [150, 140, 130, 120, 110, 100]  # Example BP targets over time
-            title = "Blood Pressure Targets Over 6 Months"
+            data = {
+                "Target": ["Blood Pressure", "LDL Cholesterol", "Physical Activity"],
+                "Goal": ["< 130/80 mmHg", "< 100 mg/dL", "150 minutes/week"],
+                "Time Frame": ["6 months", "6 months", "Ongoing"],
+                "Monitoring": ["Every 3 months", "Every 3 months", "Weekly check-ins"],
+                "Notes": ["Diet, exercise, medication", "Diet, possibly medication", "Join a support group"]
+            }
         else:
-            y = [130, 125, 120, 115, 110, 105]
-            title = "Blood Pressure Targets Over 6 Months"
+            data = {
+                "Target": ["Blood Pressure", "Physical Activity"],
+                "Goal": ["< 140/90 mmHg", "30 minutes/day"],
+                "Time Frame": ["Ongoing", "Ongoing"],
+                "Monitoring": ["Annually", "Weekly check-ins"],
+                "Notes": ["Diet and lifestyle", "Regular exercise"]
+            }
+
     elif condition == "Diabetes":
         if risk == "High":
-            y = [8, 7.5, 7, 6.5, 6, 5.5]  # HbA1c targets
-            title = "HbA1c Targets Over 6 Months"
+            data = {
+                "Target": ["HbA1c", "Fasting Glucose", "Physical Activity"],
+                "Goal": ["< 7%", "< 126 mg/dL", "150 minutes/week"],
+                "Time Frame": ["3 months", "3 months", "Ongoing"],
+                "Monitoring": ["Every 3 months", "Every 3 months", "Weekly check-ins"],
+                "Notes": ["Diet, medication", "Monitor daily", "Join a support group"]
+            }
         else:
-            y = [7, 6.5, 6, 5.5, 5, 4.5]
-            title = "HbA1c Targets Over 6 Months"
+            data = {
+                "Target": ["HbA1c", "Physical Activity"],
+                "Goal": ["< 8%", "30 minutes/day"],
+                "Time Frame": ["Annual", "Ongoing"],
+                "Monitoring": ["Annually", "Weekly check-ins"],
+                "Notes": ["Diet and lifestyle", "Regular exercise"]
+            }
+
     elif condition == "COPD":
         if risk == "High":
-            y = [60, 65, 70, 75, 80, 85]  # FEV1 targets
-            title = "FEV1 Improvement Over 6 Months"
+            data = {
+                "Target": ["FEV1", "Exacerbations"],
+                "Goal": ["> 70%", "< 2 per year"],
+                "Time Frame": ["Ongoing", "Ongoing"],
+                "Monitoring": ["Every 1-3 months", "Every visit"],
+                "Notes": ["Pulmonary rehab, smoking cessation", "Avoid triggers"]
+            }
         else:
-            y = [75, 77, 79, 81, 83, 85]
-            title = "FEV1 Improvement Over 6 Months"
+            data = {
+                "Target": ["FEV1"],
+                "Goal": ["> 70%"],
+                "Time Frame": ["Ongoing"],
+                "Monitoring": ["Biannually"],
+                "Notes": ["Avoid smoking"]
+            }
+
     elif condition == "Asthma":
         if risk == "High":
-            y = [3, 2.5, 2, 1.5, 1, 0.5]  # Asthma control metrics
-            title = "Asthma Control Over 6 Months"
+            data = {
+                "Target": ["Symptom Control", "Inhaler Use"],
+                "Goal": ["< 2 days/week", "Use as needed"],
+                "Time Frame": ["Ongoing", "Ongoing"],
+                "Monitoring": ["Monthly", "As needed"],
+                "Notes": ["Adhere to asthma plan", "Avoid triggers"]
+            }
         else:
-            y = [2, 1.5, 1, 0.5, 0, 0]
-            title = "Asthma Control Over 6 Months"
+            data = {
+                "Target": ["Symptom Control"],
+                "Goal": ["< 2 uses/week"],
+                "Time Frame": ["Ongoing"],
+                "Monitoring": ["Every 3-6 months"],
+                "Notes": ["Continue medication"]
+            }
 
-    # Plotting with Streamlit's built-in line chart
-    st.write(f"#### {title}")
-    st.line_chart(y)
+    return pd.DataFrame(data)
 
-# Initialize Streamlit app
-st.title("Chronic Care Management Tool")
-st.write("This application helps assess risks for various chronic conditions and provides personalized care plans.")
+# Streamlit UI Setup
+st.title("Chronic Disease Risk Assessment Tool")
 
-# Initialize session state for results
+# Initialize session state
 if 'results' not in st.session_state:
     st.session_state['results'] = {}
 
-# Risk Assessment Tabs
+# Tabs for different conditions
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan"])
 
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="cv_age")
     systolic_bp = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80, max_value=200, value=120, key="systolic_bp")
     cholesterol = st.number_input("Cholesterol (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
     smoker = st.checkbox("Smoker", key="smoker")
@@ -241,10 +281,12 @@ with tab5:
         patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
         st.write(patient_care_plan)
 
-        # Plot unified care plan for each condition based on risk level
+        # Create a comprehensive table for the unified care plan
+        st.write("### Care Plan Targets Table")
         for condition, risk in st.session_state['results'].items():
-            st.write(f"#### Monitoring Graph for {condition} - Risk Level: {risk}")
-            plot_unified_care_plan(condition, risk)
+            st.write(f"#### Care Plan for {condition} - Risk Level: {risk}")
+            care_plan_table = create_unified_care_plan_table(condition, risk)
+            st.dataframe(care_plan_table)
 
 # Educational Resources Section
 st.write("---")
