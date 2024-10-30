@@ -183,3 +183,7 @@ with tab5:
         st.write("**Personalized Care Plan**:\n" + care_plan)
     else:
         st.write("Please complete risk assessments in previous tabs first.")
+
+# Run the app
+if __name__ == "__main__":
+    st.write("Run this Streamlit app with the command `streamlit run app.py`.")
