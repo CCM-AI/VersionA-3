@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
@@ -129,54 +128,32 @@ def patient_friendly_care_plan(results):
 
     return "\n\n".join(care_plan)
 
-# Function to plot graphs for Unified Care Plan
+# Function to create a unified care plan plot using Streamlit's line_chart
 def plot_unified_care_plan(condition, risk):
     x = np.arange(1, 7)
     if condition == "Cardiovascular":
         if risk == "High":
             y = [150, 140, 130, 120, 110, 100]  # Example BP targets over time
-            title = "Cardiovascular Risk Management"
-            ylabel = "Blood Pressure (mmHg)"
         else:
             y = [130, 125, 120, 115, 110, 105]
-            title = "Cardiovascular Monitoring"
-            ylabel = "Blood Pressure (mmHg)"
     elif condition == "Diabetes":
         if risk == "High":
             y = [8, 7.5, 7, 6.5, 6, 5.5]  # HbA1c targets
-            title = "Diabetes Risk Management"
-            ylabel = "HbA1c (%)"
         else:
             y = [7, 6.5, 6, 5.5, 5, 4.5]
-            title = "Diabetes Monitoring"
-            ylabel = "HbA1c (%)"
     elif condition == "COPD":
         if risk == "High":
             y = [60, 65, 70, 75, 80, 85]  # FEV1 targets
-            title = "COPD Risk Management"
-            ylabel = "FEV1 (%)"
         else:
             y = [75, 77, 79, 81, 83, 85]
-            title = "COPD Monitoring"
-            ylabel = "FEV1 (%)"
     elif condition == "Asthma":
         if risk == "High":
             y = [3, 2.5, 2, 1.5, 1, 0.5]  # Asthma control metrics
-            title = "Asthma Risk Management"
-            ylabel = "Symptoms (Days/Week)"
         else:
             y = [2, 1.5, 1, 0.5, 0, 0]
-            title = "Asthma Monitoring"
-            ylabel = "Symptoms (Days/Week)"
 
-    plt.figure(figsize=(10, 6))
-    plt.plot(x, y, marker='o')
-    plt.title(title)
-    plt.xlabel("Time (Months)")
-    plt.ylabel(ylabel)
-    plt.xticks(x)
-    plt.grid()
-    st.pyplot(plt)
+    # Plotting with Streamlit's built-in line chart
+    st.line_chart(y)
 
 # Initialize Streamlit app
 st.title("Chronic Care Management Tool")
