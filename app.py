@@ -102,7 +102,7 @@ if 'results' not in st.session_state:
     st.session_state['results'] = {}
 
 # Risk Assessment Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan", "AI Assistant"])
 
 # Cardiovascular Risk Tab
 with tab1:
@@ -183,6 +183,15 @@ with tab5:
     else:
         st.write("Please complete risk assessments in previous tabs first.")
 
+# AI Assistant Tab
+with tab6:
+    st.header("AI Assistant")
+    if st.session_state['results']:
+        response = ai_assistant_response(st.session_state['results'])
+        st.write("**AI Generated Recommendations**:\n" + response)
+    else:
+        st.write("Please complete risk assessments in previous tabs first.")
+
 # Run the app
 if __name__ == "__main__":
-    st.write("Run this Streamlit app with the command `streamlit run app.py`.")
+    st.write("This app is running and is ready for use!")
