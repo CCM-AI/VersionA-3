@@ -27,19 +27,70 @@ def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use
 
 # AI Assistant Function
 def ai_assistant_response(query, results):
-    # Example response structure, should be replaced with actual AI logic
-    responses = {
-        "Cardiovascular": "Consider lifestyle modifications, blood pressure monitoring, and medication adjustments as per AHA guidelines.",
-        "Diabetes": "Focus on dietary changes, regular glucose monitoring, and HbA1c management based on ADA recommendations.",
-        "COPD": "Implement smoking cessation, pulmonary rehabilitation, and inhaler technique assessments.",
-        "Asthma": "Ensure adherence to a personalized asthma action plan and regular follow-ups for medication management."
-    }
-    
-    combined_response = []
-    for condition in results.keys():
-        combined_response.append(f"{condition}: {responses.get(condition, 'No specific guidance available.')}")
-    
-    return "\n".join(combined_response)
+    responses = []
+
+    for condition, risk in results.items():
+        if condition == "Cardiovascular":
+            if risk == "High":
+                responses.append(
+                    "### Cardiovascular Risk Management\n"
+                    "- **Management**: Initiate lifestyle changes including a heart-healthy diet, regular physical activity, and weight management. Consider pharmacotherapy for blood pressure and cholesterol management as per AHA/ACC guidelines.\n"
+                    "- **Follow-Up**: Schedule regular follow-up visits every 3-6 months to monitor blood pressure, cholesterol levels, and overall cardiovascular health.\n"
+                    "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Cardiovascular Risk Management\n"
+                    "- **Management**: Encourage patients to adopt heart-healthy lifestyle changes such as reducing sodium intake, increasing physical activity, and maintaining a healthy weight. Monitor blood pressure and cholesterol regularly.\n"
+                    "- **Follow-Up**: Consider annual check-ups to assess risk factors.\n"
+                )
+
+        elif condition == "Diabetes":
+            if risk == "High":
+                responses.append(
+                    "### Diabetes Risk Management\n"
+                    "- **Management**: Recommend a structured diabetes management plan including dietary modifications (e.g., DASH diet), regular blood glucose monitoring, and potential initiation of pharmacotherapy (e.g., Metformin) based on ADA guidelines.\n"
+                    "- **Follow-Up**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
+                    "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Diabetes Risk Management\n"
+                    "- **Management**: Advise patients on lifestyle changes including increased physical activity and dietary adjustments to reduce sugar and carbohydrate intake.\n"
+                    "- **Follow-Up**: Regular monitoring of blood glucose levels and annual HbA1c testing.\n"
+                )
+
+        elif condition == "COPD":
+            if risk == "High":
+                responses.append(
+                    "### COPD Risk Management\n"
+                    "- **Management**: Immediate initiation of smoking cessation programs and pulmonary rehabilitation. Consider medications such as bronchodilators and corticosteroids as per GOLD guidelines.\n"
+                    "- **Follow-Up**: Schedule regular follow-ups every 1-3 months to monitor lung function and exacerbation history.\n"
+                    "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### COPD Risk Management\n"
+                    "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed. Educate patients on recognizing early signs of exacerbation.\n"
+                    "- **Follow-Up**: Biannual follow-ups to assess lung function and medication effectiveness.\n"
+                )
+
+        elif condition == "Asthma":
+            if risk == "High":
+                responses.append(
+                    "### Asthma Risk Management\n"
+                    "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and educating patients about proper inhaler technique. Develop a comprehensive asthma action plan.\n"
+                    "- **Follow-Up**: Schedule visits every 1-3 months to reassess control and medication needs.\n"
+                    "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Asthma Risk Management\n"
+                    "- **Management**: Reinforce the importance of adherence to maintenance therapy and review the asthma action plan regularly.\n"
+                    "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor asthma control.\n"
+                )
+
+    return "\n\n".join(responses)
 
 # Initialize Streamlit app
 st.title("Chronic Care Management Tool")
