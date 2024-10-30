@@ -138,13 +138,13 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", 
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
+    age_cardiovascular = st.number_input("Age", min_value=18, max_value=120, value=50, key="age_cardiovascular")
     systolic_bp = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80, max_value=200, value=120, key="systolic_bp")
     cholesterol = st.number_input("Cholesterol (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
     smoker = st.checkbox("Smoker", key="smoker")
 
     if st.button("Calculate Cardiovascular Risk"):
-        cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
+        cardio_risk = calculate_cardio_risk(age_cardiovascular, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
 
@@ -155,14 +155,14 @@ with tab1:
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
+    age_diabetes = st.number_input("Age", min_value=18, max_value=120, value=50, key="age_diabetes")
     bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
     family_history = st.checkbox("Family History of Diabetes", key="family_history")
     fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=70, max_value=300, value=100, key="fasting_glucose")
     hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=14.0, value=5.7, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
-        diabetes_risk = calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c)
+        diabetes_risk = calculate_diabetes_risk(bmi, age_diabetes, family_history, fasting_glucose, hba1c)
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
 
@@ -173,13 +173,13 @@ with tab2:
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
+    age_copd = st.number_input("Age", min_value=18, max_value=120, value=50, key="age_copd")
     smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
     fev1 = st.number_input("FEV1 (% predicted)", min_value=0.0, max_value=100.0, value=80.0, key="fev1")
     exacerbations_last_year = st.number_input("Number of Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
     if st.button("Calculate COPD Risk"):
-        copd_risk = calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year)
+        copd_risk = calculate_copd_risk(smoking_years, age_copd, fev1, exacerbations_last_year)
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
 
@@ -190,10 +190,10 @@ with tab3:
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
+    age_asthma = st.number_input("Age", min_value=18, max_value=120, value=50, key="age_asthma")
     frequency_of_symptoms = st.number_input("Frequency of Symptoms per Week", min_value=0, max_value=14, value=3, key="frequency_of_symptoms")
     nighttime_symptoms = st.number_input("Nighttime Symptoms per Month", min_value=0, max_value=30, value=1, key="nighttime_symptoms")
     inhaler_use = st.number_input("Days of Rescue Inhaler Use per Week", min_value=0, max_value=7, value=2, key="inhaler_use")
-    fev1 = st.number_input("FEV1 (% predicted)", min_value=0.0, max_value=100.0, value=80.0, key="fev1")
     eosinophil_count = st.number_input("Eosinophil Count (cells/µL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
