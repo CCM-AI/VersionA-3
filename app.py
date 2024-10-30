@@ -201,10 +201,10 @@ with tab5:
         patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
         st.write(patient_care_plan)
 
-# Educational Resources Section for Patients
+# Educational Resources Section
 st.write("---")
-st.header("Educational Resources for Patients")
-st.write("Here are some trusted resources for managing your health:")
+st.header("Educational Resources")
+st.write("Here are some trusted resources for chronic disease management:")
 st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
 st.write("- [American Heart Association (AHA)](https://www.heart.org)")
 st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
