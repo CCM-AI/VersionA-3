@@ -143,8 +143,8 @@ with tab2:
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
-    smoking_years = st.number_input("Years Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
-    age_copd = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_copd")
+    smoking_years = st.number_input("Years Smoked", min_value=0, max_value=100, value=10, key="smoking_years")
+    age_copd = st.number_input("Age", min_value=40, max_value=100, value=65, key="age_copd")
     fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_copd")
     exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
@@ -183,7 +183,3 @@ with tab5:
         st.write("**Personalized Care Plan**:\n" + care_plan)
     else:
         st.write("Please complete risk assessments in previous tabs first.")
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    st.run()
