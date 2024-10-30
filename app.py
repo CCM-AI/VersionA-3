@@ -30,72 +30,72 @@ def ai_assistant_response(condition, risk):
         if risk == "High":
             responses.append(
                 "### Cardiovascular Risk Management\n"
-                "- **Management**: Initiate lifestyle changes including a heart-healthy diet, regular physical activity, and weight management. Consider pharmacotherapy for blood pressure and cholesterol management as per AHA/ACC guidelines.\n"
-                "- **Targets**: Achieve BP < 130/80 mmHg, LDL < 100 mg/dL within 6 months.\n"
-                "- **Risk Factors to Avoid**: Smoking, excessive alcohol, high sodium intake.\n"
-                "- **Monitoring**: Regular follow-ups every 3 months for blood pressure and cholesterol.\n"
+                "- **Management**: Make heart-healthy lifestyle changes such as a balanced diet, regular exercise, and possibly medication.\n"
+                "- **Goals**: Target a blood pressure below 130/80 mmHg and LDL cholesterol below 100 mg/dL within 6 months.\n"
+                "- **Avoid**: Smoking and high sodium foods.\n"
+                "- **Monitoring**: Check blood pressure and cholesterol every 3 months.\n"
                 "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
             )
         else:
             responses.append(
                 "### Cardiovascular Risk Management\n"
-                "- **Management**: Encourage heart-healthy lifestyle changes such as reducing sodium intake, increasing physical activity, and maintaining a healthy weight.\n"
-                "- **Targets**: Maintain BP < 140/90 mmHg, monitor cholesterol annually.\n"
-                "- **Monitoring**: Consider annual check-ups to assess risk factors.\n"
+                "- **Management**: Encourage healthy lifestyle choices.\n"
+                "- **Goals**: Maintain blood pressure under 140/90 mmHg.\n"
+                "- **Monitoring**: Annual check-ups.\n"
             )
 
     elif condition == "Diabetes":
         if risk == "High":
             responses.append(
                 "### Diabetes Risk Management\n"
-                "- **Management**: Recommend a structured diabetes management plan including dietary modifications, regular blood glucose monitoring, and potential initiation of pharmacotherapy.\n"
-                "- **Targets**: Achieve HbA1c < 7% within 3 months.\n"
-                "- **Risk Factors to Avoid**: Sugary foods, sedentary lifestyle.\n"
-                "- **Monitoring**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
+                "- **Management**: Follow a structured diabetes plan with dietary changes, regular monitoring, and possibly medication.\n"
+                "- **Goals**: Aim for an HbA1c level below 7% within 3 months.\n"
+                "- **Avoid**: Sugary foods and a sedentary lifestyle.\n"
+                "- **Monitoring**: Follow-up every 3 months.\n"
                 "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
             )
         else:
             responses.append(
                 "### Diabetes Risk Management\n"
-                "- **Management**: Advise lifestyle changes including increased physical activity and dietary adjustments.\n"
-                "- **Targets**: Monitor HbA1c annually; aim for < 8%.\n"
-                "- **Monitoring**: Regular blood glucose monitoring and annual HbA1c testing.\n"
+                "- **Management**: Continue healthy habits and monitor regularly.\n"
+                "- **Goals**: Aim for an HbA1c below 8% annually.\n"
+                "- **Monitoring**: Regular glucose checks.\n"
             )
 
     elif condition == "COPD":
         if risk == "High":
             responses.append(
                 "### COPD Risk Management\n"
-                "- **Management**: Immediate initiation of smoking cessation programs and pulmonary rehabilitation. Consider medications such as bronchodilators and corticosteroids.\n"
-                "- **Targets**: Achieve FEV1 improvement of at least 5% in 6 months.\n"
-                "- **Risk Factors to Avoid**: Smoking, exposure to pollutants.\n"
-                "- **Monitoring**: Schedule regular follow-ups every 1-3 months.\n"
+                "- **Management**: Start smoking cessation and pulmonary rehabilitation.\n"
+                "- **Goals**: Improve FEV1 by at least 5% in 6 months.\n"
+                "- **Avoid**: Smoking and air pollutants.\n"
+                "- **Monitoring**: Follow-ups every 1-3 months.\n"
                 "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
             )
         else:
             responses.append(
                 "### COPD Risk Management\n"
-                "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed.\n"
-                "- **Targets**: Aim for FEV1 > 70% predicted.\n"
-                "- **Monitoring**: Biannual follow-ups to assess lung function.\n"
+                "- **Management**: Encourage smoking cessation and bronchodilator use.\n"
+                "- **Goals**: Maintain FEV1 above 70%.\n"
+                "- **Monitoring**: Biannual lung function tests.\n"
             )
 
     elif condition == "Asthma":
         if risk == "High":
             responses.append(
                 "### Asthma Risk Management\n"
-                "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and educating patients about proper inhaler technique.\n"
-                "- **Targets**: Aim for < 2 days/week with symptoms and no nighttime awakenings.\n"
-                "- **Risk Factors to Avoid**: Allergens, tobacco smoke.\n"
-                "- **Monitoring**: Schedule visits every 1-3 months to reassess control.\n"
+                "- **Management**: Ensure proper medication use and adherence.\n"
+                "- **Goals**: Control symptoms to less than 2 days/week and no nighttime awakenings.\n"
+                "- **Avoid**: Allergens and tobacco smoke.\n"
+                "- **Monitoring**: Check control every 1-3 months.\n"
                 "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
             )
         else:
             responses.append(
                 "### Asthma Risk Management\n"
-                "- **Management**: Reinforce adherence to maintenance therapy and review the asthma action plan regularly.\n"
-                "- **Targets**: Maintain symptom control with < 2 rescue inhaler uses/week.\n"
-                "- **Monitoring**: Schedule follow-ups every 3-6 months.\n"
+                "- **Management**: Reinforce adherence to your asthma plan.\n"
+                "- **Goals**: Maintain less than 2 uses of rescue inhaler/week.\n"
+                "- **Monitoring**: Every 3-6 months check-up.\n"
             )
 
     return "\n\n".join(responses)
@@ -110,18 +110,18 @@ def patient_friendly_care_plan(results):
         if risk == "High":
             care_steps += (
                 "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
-                "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins.\n"
-                "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week.\n"
-                "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised.\n"
-                "- **Step 5**: Join a support group or online community for motivation.\n"
+                "- **Step 2**: Start a heart-healthy diet focusing on fruits, vegetables, and whole grains.\n"
+                "- **Step 3**: Aim for at least 150 minutes of moderate exercise each week.\n"
+                "- **Step 4**: Monitor your health indicators (like blood pressure) as advised.\n"
+                "- **Step 5**: Join a support group for motivation and guidance.\n"
             )
         elif risk == "Moderate":
             care_steps += (
                 "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
                 "- **Step 2**: Continue a balanced diet and stay active.\n"
-                "- **Step 3**: Aim to get at least 30 minutes of exercise most days.\n"
-                "- **Step 4**: Monitor your symptoms and report any changes to your provider.\n"
-                "- **Step 5**: Educate yourself about your condition using reliable sources.\n"
+                "- **Step 3**: Aim for at least 30 minutes of exercise most days.\n"
+                "- **Step 4**: Keep track of your symptoms and report any changes.\n"
+                "- **Step 5**: Educate yourself about your condition using reliable resources.\n"
             )
         
         care_plan.append(care_steps)
@@ -134,25 +134,34 @@ def plot_unified_care_plan(condition, risk):
     if condition == "Cardiovascular":
         if risk == "High":
             y = [150, 140, 130, 120, 110, 100]  # Example BP targets over time
+            title = "Blood Pressure Targets Over 6 Months"
         else:
             y = [130, 125, 120, 115, 110, 105]
+            title = "Blood Pressure Targets Over 6 Months"
     elif condition == "Diabetes":
         if risk == "High":
             y = [8, 7.5, 7, 6.5, 6, 5.5]  # HbA1c targets
+            title = "HbA1c Targets Over 6 Months"
         else:
             y = [7, 6.5, 6, 5.5, 5, 4.5]
+            title = "HbA1c Targets Over 6 Months"
     elif condition == "COPD":
         if risk == "High":
             y = [60, 65, 70, 75, 80, 85]  # FEV1 targets
+            title = "FEV1 Improvement Over 6 Months"
         else:
             y = [75, 77, 79, 81, 83, 85]
+            title = "FEV1 Improvement Over 6 Months"
     elif condition == "Asthma":
         if risk == "High":
             y = [3, 2.5, 2, 1.5, 1, 0.5]  # Asthma control metrics
+            title = "Asthma Control Over 6 Months"
         else:
             y = [2, 1.5, 1, 0.5, 0, 0]
+            title = "Asthma Control Over 6 Months"
 
     # Plotting with Streamlit's built-in line chart
+    st.write(f"#### {title}")
     st.line_chart(y)
 
 # Initialize Streamlit app
