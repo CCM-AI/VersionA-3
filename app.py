@@ -151,9 +151,10 @@ with tab1:
 with tab2:
     st.header("Diabetes Risk Assessment")
     bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi")
-    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=70, max_value=200, value=100, key="fasting_glucose")
-    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=12.0, value=5.5, key="hba1c")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="diabetes_age")
     family_history = st.checkbox("Family History of Diabetes", key="family_history")
+    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=100, key="fasting_glucose")
+    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.5, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
         diabetes_risk = calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c)
@@ -163,9 +164,10 @@ with tab2:
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
-    smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=60, value=10, key="smoking_years")
-    fev1 = st.number_input("FEV1 (% of predicted)", min_value=0, max_value=100, value=80, key="fev1")
-    exacerbations_last_year = st.number_input("Exacerbations in the Last Year", min_value=0, max_value=10, value=0, key="exacerbations_last_year")
+    smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="copd_age")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
+    exacerbations_last_year = st.number_input("Exacerbations in Last Year", min_value=0, max_value=10, value=1, key="exacerbations")
 
     if st.button("Calculate COPD Risk"):
         copd_risk = calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year)
@@ -175,25 +177,49 @@ with tab3:
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.number_input("Frequency of Symptoms (per week)", min_value=0, max_value=7, value=0, key="frequency_of_symptoms")
-    nighttime_symptoms = st.number_input("Nighttime Symptoms (per week)", min_value=0, max_value=7, value=0, key="nighttime_symptoms")
-    inhaler_use = st.number_input("Inhaler Use (per week)", min_value=0, max_value=7, value=0, key="inhaler_use")
-    eosinophil_count = st.number_input("Eosinophil Count", min_value=0, max_value=1000, value=100, key="eosinophil_count")
+    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1, key="nighttime_symptoms")
+    inhaler_use = st.slider("Inhaler Use (0-7 days/week)", 0, 7, 2, key="inhaler_use")
+    fev1_asthma = st.number_input("FEV1 (%) - Asthma", min_value=20, max_value=100, value=80, key="fev1_asthma")
+    eosinophil_count = st.number_input("Eosinophil Count (cells/μL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
-        asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count)
+        asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
         st.write(f"**Asthma Risk Level**: {asthma_risk}")
         st.session_state['results']["Asthma"] = asthma_risk
 
 # Unified Care Plan Tab
 with tab5:
-    st.header("Personalized Unified Care Plan")
+    st.header("Unified Care Plan")
     if st.session_state['results']:
-        unified_care_plan = ai_assistant_response("", st.session_state['results'])
-        st.markdown(unified_care_plan)
-        
-        patient_plan = patient_friendly_care_plan(st.session_state['results'])
-        st.markdown("### Patient-Friendly Care Plan")
-        st.markdown(patient_plan)
-    else:
-        st.write("Please complete at least one risk assessment to generate a care plan.")
+        st.write("### Suggested Patient-Friendly Care Plan")
+        patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
+        st.write(patient_care_plan)
+
+# AI Assistant Tab
+with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider Guidance", expanded=True):
+    st.header("AI Assistant for Risk Management and Care Guidance")
+    query = st.text_input("Ask the AI Assistant about risk management, personalized care, or guidelines:")
+    if st.button("Get AI Assistance"):
+        if st.session_state['results']:
+            ai_response = ai_assistant_response(query, st.session_state['results'])
+            st.write(ai_response)
+        else:
+            st.write("Please complete risk assessments in previous tabs first.")
+
+# Educational Resources Section
+st.write("---")
+st.header("Educational Resources")
+st.write("Here are some trusted resources for chronic disease management:")
+st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
+st.write("- [American Heart Association (AHA)](https://www.heart.org)")
+st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
+st.write("- [Asthma and Allergy Foundation of America (AAFA)](https://www.aafa.org)")
+
+# Footer Section
+st.write("---")
+st.header("Feedback and Support")
+st.write("We value your feedback! Please let us know how we can improve this application or if you need further assistance.")
+feedback = st.text_area("Your Feedback:", height=100)
+if st.button("Submit Feedback"):
+    st.success("Thank you for your feedback!")
