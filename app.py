@@ -102,7 +102,7 @@ if 'results' not in st.session_state:
     st.session_state['results'] = {}
 
 # Risk Assessment Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan", "AI Assistant"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan", "AI Assistant"])
 
 # Cardiovascular Risk Tab
 with tab1:
@@ -144,7 +144,7 @@ with tab3:
     st.header("COPD Risk Assessment")
     smoking_years = st.number_input("Years Smoked", min_value=0, max_value=100, value=10, key="smoking_years")
     age_copd = st.number_input("Age", min_value=40, max_value=100, value=65, key="age_copd")
-    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_copd")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
     exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
     if st.button("Calculate COPD Risk"):
