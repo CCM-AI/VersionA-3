@@ -2,72 +2,126 @@ import streamlit as st
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
-    # Example logic for cardiovascular risk calculation
     if smoker and systolic_bp > 140:
         return "High"
     return "Moderate"
 
 def calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c):
-    # Example logic for diabetes risk calculation
     if fasting_glucose > 126 or hba1c > 6.5:
         return "High"
     return "Moderate"
 
 def calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year):
-    # Example logic for COPD risk calculation
     if smoking_years > 20 and exacerbations_last_year > 2:
         return "High"
     return "Moderate"
 
 def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count):
-    # Example logic for asthma risk calculation
     if frequency_of_symptoms > 4 or nighttime_symptoms > 2:
         return "High"
     return "Moderate"
 
 # AI Assistant Function
 def ai_assistant_response(query, results):
-    # Example response structure, should be replaced with actual AI logic
-    responses = {
-        "Cardiovascular": (
-            "Consider lifestyle modifications, blood pressure monitoring, and medication adjustments as per AHA guidelines.\n"
-            "Recommendations include:\n"
-            "- Follow a heart-healthy diet rich in fruits, vegetables, and whole grains.\n"
-            "- Engage in regular physical activity (150 minutes of moderate exercise per week).\n"
-            "- Monitor blood pressure and cholesterol levels regularly.\n"
-            "- Discuss potential medications like statins or antihypertensives with your provider."
-        ),
-        "Diabetes": (
-            "Focus on dietary changes, regular glucose monitoring, and HbA1c management based on ADA recommendations.\n"
-            "Recommendations include:\n"
-            "- Implement a balanced diet with controlled carbohydrate intake.\n"
-            "- Monitor blood glucose levels regularly to understand trends and manage insulin use.\n"
-            "- Engage in at least 150 minutes of moderate exercise weekly.\n"
-            "- Regular follow-ups to adjust medication as needed."
-        ),
-        "COPD": (
-            "Implement smoking cessation, pulmonary rehabilitation, and inhaler technique assessments.\n"
-            "Recommendations include:\n"
-            "- Engage in a smoking cessation program if applicable.\n"
-            "- Participate in pulmonary rehabilitation to improve lung function.\n"
-            "- Monitor for exacerbations and have a plan in place for managing them.\n"
-            "- Regular use of prescribed inhalers and medications."
-        ),
-        "Asthma": (
-            "Ensure adherence to a personalized asthma action plan and regular follow-ups for medication management.\n"
-            "Recommendations include:\n"
-            "- Identify and avoid triggers that worsen symptoms.\n"
-            "- Use medications as prescribed and monitor symptoms daily.\n"
-            "- Keep a rescue inhaler available at all times.\n"
-            "- Schedule regular check-ups to review medication and asthma control."
-        )
-    }
-    
-    combined_response = []
-    for condition in results.keys():
-        combined_response.append(f"{condition}: {responses.get(condition, 'No specific guidance available.')}")
-    
-    return "\n\n".join(combined_response)
+    responses = []
+
+    for condition, risk in results.items():
+        if condition == "Cardiovascular":
+            if risk == "High":
+                responses.append(
+                    "### Cardiovascular Risk Management\n"
+                    "- **Management**: Initiate lifestyle changes including a heart-healthy diet, regular physical activity, and weight management. Consider pharmacotherapy for blood pressure and cholesterol management as per AHA/ACC guidelines.\n"
+                    "- **Follow-Up**: Schedule regular follow-up visits every 3-6 months to monitor blood pressure, cholesterol levels, and overall cardiovascular health.\n"
+                    "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Cardiovascular Risk Management\n"
+                    "- **Management**: Encourage patients to adopt heart-healthy lifestyle changes such as reducing sodium intake, increasing physical activity, and maintaining a healthy weight. Monitor blood pressure and cholesterol regularly.\n"
+                    "- **Follow-Up**: Consider annual check-ups to assess risk factors.\n"
+                )
+
+        elif condition == "Diabetes":
+            if risk == "High":
+                responses.append(
+                    "### Diabetes Risk Management\n"
+                    "- **Management**: Recommend a structured diabetes management plan including dietary modifications (e.g., DASH diet), regular blood glucose monitoring, and potential initiation of pharmacotherapy (e.g., Metformin) based on ADA guidelines.\n"
+                    "- **Follow-Up**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
+                    "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Diabetes Risk Management\n"
+                    "- **Management**: Advise patients on lifestyle changes including increased physical activity and dietary adjustments to reduce sugar and carbohydrate intake.\n"
+                    "- **Follow-Up**: Regular monitoring of blood glucose levels and annual HbA1c testing.\n"
+                )
+
+        elif condition == "COPD":
+            if risk == "High":
+                responses.append(
+                    "### COPD Risk Management\n"
+                    "- **Management**: Immediate initiation of smoking cessation programs and pulmonary rehabilitation. Consider medications such as bronchodilators and corticosteroids as per GOLD guidelines.\n"
+                    "- **Follow-Up**: Schedule regular follow-ups every 1-3 months to monitor lung function and exacerbation history.\n"
+                    "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### COPD Risk Management\n"
+                    "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed. Educate patients on recognizing early signs of exacerbation.\n"
+                    "- **Follow-Up**: Biannual follow-ups to assess lung function and medication effectiveness.\n"
+                )
+
+        elif condition == "Asthma":
+            if risk == "High":
+                responses.append(
+                    "### Asthma Risk Management\n"
+                    "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and educating patients about proper inhaler technique. Develop a comprehensive asthma action plan.\n"
+                    "- **Follow-Up**: Schedule visits every 1-3 months to reassess control and medication needs.\n"
+                    "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
+                )
+            elif risk == "Moderate":
+                responses.append(
+                    "### Asthma Risk Management\n"
+                    "- **Management**: Reinforce the importance of adherence to maintenance therapy and review the asthma action plan regularly.\n"
+                    "- **Follow-Up**: Schedule follow-ups every 3-6 months to monitor asthma control.\n"
+                )
+
+    return "\n\n".join(responses)
+
+# Create patient-friendly care plan based on risk levels
+def patient_friendly_care_plan(results):
+    care_plan = []
+
+    for condition, risk in results.items():
+        care_steps = f"### Care Plan for {condition} - Risk Level: {risk}\n"
+        
+        if risk == "High":
+            care_steps += (
+                "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
+                "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins. Here’s a helpful [video on heart-healthy diets](https://www.youtube.com/watch?v=example1).\n"
+                "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week. Here’s a [guide to starting exercise](https://www.youtube.com/watch?v=example2).\n"
+                "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. Use this [blood pressure log template](https://example.com/log-template).\n"
+                "- **Step 5**: Join a support group or online community for motivation. Here’s a list of resources: [Support Groups](https://example.com/support-groups).\n"
+            )
+        elif risk == "Moderate":
+            care_steps += (
+                "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
+                "- **Step 2**: Implement dietary changes focusing on reducing sodium and sugar intake. Check out this [diet tips video](https://www.youtube.com/watch?v=example3).\n"
+                "- **Step 3**: Aim for at least 30 minutes of exercise most days of the week. Here’s a [simple exercise routine](https://www.youtube.com/watch?v=example4).\n"
+                "- **Step 4**: Track your weight and blood pressure at home. Use this [tracking app](https://example.com/app).\n"
+                "- **Step 5**: Learn more about your condition through these [educational resources](https://example.com/education).\n"
+            )
+        else:
+            care_steps += (
+                "- **Step 1**: Schedule an annual check-up with your healthcare provider.\n"
+                "- **Step 2**: Maintain a balanced diet and active lifestyle. Here’s a [general health tips video](https://www.youtube.com/watch?v=example5).\n"
+                "- **Step 3**: Monitor your health regularly, including blood pressure and weight. Consider using a [health app](https://example.com/app).\n"
+                "- **Step 4**: Stay informed about your health condition through reliable sources. Here are some [trusted websites](https://example.com/trusted-websites).\n"
+            )
+        
+        care_plan.append(care_steps)
+
+    return "\n\n".join(care_plan)
 
 # Initialize Streamlit app
 st.title("Chronic Care Management Tool")
@@ -96,27 +150,27 @@ with tab1:
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
-    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi_diabetes")
-    age_diabetes = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_diabetes")
+    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="diabetes_age")
     family_history = st.checkbox("Family History of Diabetes", key="family_history")
     fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=100, key="fasting_glucose")
-    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.0, key="hba1c")
+    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.5, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
-        diabetes_risk = calculate_diabetes_risk(bmi, age_diabetes, family_history, fasting_glucose, hba1c)
+        diabetes_risk = calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c)
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
 
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
-    smoking_years = st.number_input("Years Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
-    age_copd = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_copd")
+    smoking_years = st.number_input("Years of Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="copd_age")
     fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
-    exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
+    exacerbations_last_year = st.number_input("Exacerbations in Last Year", min_value=0, max_value=10, value=1, key="exacerbations")
 
     if st.button("Calculate COPD Risk"):
-        copd_risk = calculate_copd_risk(smoking_years, age_copd, fev1, exacerbations_last_year)
+        copd_risk = calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year)
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
 
@@ -136,44 +190,11 @@ with tab4:
 
 # Unified Care Plan Tab
 with tab5:
-    st.header("Unified Care Plan for Patients")
+    st.header("Unified Care Plan")
     if st.session_state['results']:
-        st.write("### Care Plan Based on Risk Levels")
-        for condition, risk in st.session_state['results'].items():
-            st.write(f"#### {condition} - {risk} Risk")
-
-            if risk == "High":
-                st.write(f"**Your Management Plan for {condition:**")
-                st.write("- **Step 1**: Schedule an appointment with your healthcare provider to discuss treatment options and medications.")
-                st.write("- **Step 2**: Follow a tailored diet plan (e.g., low-sodium for heart conditions, low-sugar for diabetes).")
-                st.write("- **Step 3**: Engage in regular physical activity, aiming for at least 150 minutes of moderate exercise weekly.")
-                st.write("- **Step 4**: Monitor your condition closely, using any prescribed tools or devices.")
-                st.write("- **Helpful Resources**: Check these links for more information:")
-                st.write("  - [Heart Disease Prevention](https://www.heart.org/en/healthy-living) (for cardiovascular risks)")
-                st.write("  - [Understanding Diabetes](https://www.diabetes.org/diabetes) (for diabetes management)")
-                st.write("  - [Managing COPD](https://www.copd.net) (for COPD management)")
-                st.write("  - [Asthma Basics](https://www.aafa.org/asthma-basics/) (for asthma management)")
-
-            elif risk == "Moderate":
-                st.write(f"**Your Management Plan for {condition}:**")
-                st.write("- **Step 1**: Continue with regular check-ups and monitor your symptoms.")
-                st.write("- **Step 2**: Implement lifestyle changes, such as a balanced diet and increased physical activity.")
-                st.write("- **Step 3**: Educate yourself about your condition and its management.")
-                st.write("- **Helpful Resources**: Check these links to enhance your knowledge:")
-                st.write("  - [Heart Health](https://www.heart.org/en/healthy-living) (for cardiovascular wellness)")
-                st.write("  - [Diabetes Basics](https://www.diabetes.org) (for diabetes education)")
-                st.write("  - [COPD Information](https://www.copd.net) (for COPD awareness)")
-                st.write("  - [Asthma Tips](https://www.aafa.org/asthma-tips/) (for asthma management)")
-
-            else:  # Low Risk
-                st.write(f"**Your Management Plan for {condition}:**")
-                st.write("- **Step 1**: Continue with your healthy lifestyle practices and regular check-ups.")
-                st.write("- **Step 2**: Stay informed about your condition and its management.")
-                st.write("- **Helpful Resources**: Check these links to enhance your knowledge:")
-                st.write("  - [Heart Health](https://www.heart.org/en/healthy-living) (for cardiovascular wellness)")
-                st.write("  - [Diabetes Basics](https://www.diabetes.org) (for diabetes education)")
-                st.write("  - [COPD Information](https://www.copd.net) (for COPD awareness)")
-                st.write("  - [Asthma Tips](https://www.aafa.org/asthma-tips/) (for asthma management)")
+        st.write("### Suggested Patient-Friendly Care Plan")
+        patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
+        st.write(patient_care_plan)
 
 # AI Assistant Tab
 with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider Guidance", expanded=True):
@@ -185,6 +206,15 @@ with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider 
             st.write(ai_response)
         else:
             st.write("Please complete risk assessments in previous tabs first.")
+
+# Educational Resources Section
+st.write("---")
+st.header("Educational Resources")
+st.write("Here are some trusted resources for chronic disease management:")
+st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
+st.write("- [American Heart Association (AHA)](https://www.heart.org)")
+st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
+st.write("- [Asthma and Allergy Foundation of America (AAFA)](https://www.aafa.org)")
 
 # Footer Section
 st.write("---")
