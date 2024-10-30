@@ -104,24 +104,25 @@ with tab1:
     st.header("Cardiovascular Risk Assessment")
     age = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_cardio")
     systolic_bp = st.slider("Systolic Blood Pressure (mmHg)", 90, 200, 120, key="systolic_bp")
-    cholesterol = st.slider("Total Cholesterol (mg/dL)", 100, 300, 180, key="cholesterol")
-    smoker = st.radio("Smoking Status", options=["Non-smoker", "Current smoker"], key="smoker")
+    cholesterol = st.slider("Total Cholesterol (mg/dL)", 100, 300, 200, key="cholesterol")
+    smoker = st.checkbox("Smoker", key="smoker")
 
     if st.button("Calculate Cardiovascular Risk"):
-        cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker == "Current smoker", cholesterol)
+        cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
 
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
-    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=22.0, key="bmi")
-    family_history = st.radio("Family History of Diabetes", options=["Yes", "No"], key="family_history")
-    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=90, key="fasting_glucose")
-    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.6, key="hba1c")
+    bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, key="bmi_diabetes")
+    age_diabetes = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_diabetes")
+    family_history = st.checkbox("Family History of Diabetes", key="family_history")
+    fasting_glucose = st.number_input("Fasting Glucose (mg/dL)", min_value=50, max_value=300, value=100, key="fasting_glucose")
+    hba1c = st.number_input("HbA1c (%)", min_value=4.0, max_value=15.0, value=5.0, key="hba1c")
 
     if st.button("Calculate Diabetes Risk"):
-        diabetes_risk = calculate_diabetes_risk(bmi, age, family_history == "Yes", fasting_glucose, hba1c)
+        diabetes_risk = calculate_diabetes_risk(bmi, age_diabetes, family_history, fasting_glucose, hba1c)
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
 
@@ -231,4 +232,3 @@ st.write("We value your feedback! Please let us know how we can improve this app
 feedback = st.text_area("Your Feedback:", height=100)
 if st.button("Submit Feedback"):
     st.success("Thank you for your feedback!")
-
