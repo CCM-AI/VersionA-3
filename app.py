@@ -155,11 +155,11 @@ with tab3:
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2)
-    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1)
-    inhaler_use = st.checkbox("Regular Inhaler Use")
-    fev1_asthma = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=85, key="fev1_asthma")
-    eosinophil_count = st.number_input("Eosinophil Count (cells/mcL)", min_value=0, max_value=500, value=200)
+    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 nights/week)", 0, 7, 1, key="nighttime_symptoms")
+    inhaler_use = st.slider("Inhaler Use per Week", 0, 10, 3, key="inhaler_use")
+    fev1_asthma = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_asthma")
+    eosinophil_count = st.number_input("Eosinophil Count (cells/µL)", min_value=0, max_value=2000, value=200, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
         asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
@@ -168,7 +168,10 @@ with tab4:
 
 # Unified Care Plan Tab
 with tab5:
-    st.header("Personalized Unified Care Plan")
-    if st.button("Generate Unified Care Plan"):
-        unified_plan = ai_assistant_response("Generate care plan", st.session_state['results'])
-        st.write(unified_plan)
+    st.header("Unified Care Plan")
+    if st.button("Generate Care Plan"):
+        if st.session_state['results']:
+            care_plan = ai_assistant_response("care guidance", st.session_state['results'])
+            st.write(care_plan)
+        else:
+            st.write("No risk assessments completed yet.")
