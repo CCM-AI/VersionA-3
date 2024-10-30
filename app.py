@@ -1,6 +1,6 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
@@ -23,106 +23,85 @@ def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use
         return "High"
     return "Moderate"
 
-# AI Assistant Function for Healthcare Provider Guidance
+# AI Assistant Function
 def ai_assistant_response(condition, risk):
+    responses = []
+
     if condition == "Cardiovascular":
         if risk == "High":
-            return (
-                "### Cardiovascular Recommendations\n"
-                "- **Management**: \n"
-                "  - Initiate lifestyle changes, including:\n"
-                "    - **Diet**: Aim for a diet low in saturated fats (<7% of total calories) and high in fruits, vegetables, and whole grains. Target a daily sodium intake <2,300 mg.\n"
-                "    - **Physical Activity**: Minimum 150 minutes of moderate-intensity aerobic exercise per week.\n"
-                "  - **Pharmacotherapy**: \n"
-                "    - Start antihypertensive agents if BP >140/90 mmHg. Consider statins if LDL ≥ 190 mg/dL or 70-189 mg/dL with a 10-year ASCVD risk ≥ 20%.\n"
-                "  - **Targets**: \n"
-                "    - Achieve BP <130/80 mmHg and LDL <100 mg/dL within 6 months.\n"
-                "  - **Risk Factors to Avoid**: Smoking, excessive alcohol, high-sugar diets, sedentary lifestyle.\n"
-                "  - **Follow-Up**: Every 3-6 months to monitor progress.\n"
-                "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines) | [ASCVD Risk Calculator](https://tools.acc.org/ASCVD/Risk-Estimator-Plus/)\n"
+            responses.append(
+                "### Cardiovascular Risk Management\n"
+                "- **Management**: Initiate lifestyle changes including a heart-healthy diet, regular physical activity, and weight management. Consider pharmacotherapy for blood pressure and cholesterol management as per AHA/ACC guidelines.\n"
+                "- **Targets**: Achieve BP < 130/80 mmHg, LDL < 100 mg/dL within 6 months.\n"
+                "- **Risk Factors to Avoid**: Smoking, excessive alcohol, high sodium intake.\n"
+                "- **Monitoring**: Regular follow-ups every 3 months for blood pressure and cholesterol.\n"
+                "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
             )
         else:
-            return (
-                "### Cardiovascular Recommendations\n"
-                "- **Management**: \n"
-                "  - Encourage lifestyle changes focusing on:\n"
-                "    - **Diet**: Maintain sodium intake <2,300 mg, limit saturated fats, increase fiber.\n"
-                "    - **Physical Activity**: Encourage at least 150 minutes of moderate activity per week.\n"
-                "  - **Monitoring**: Check BP and cholesterol annually.\n"
-                "- **Resources**: [AHA Guidelines](https://www.heart.org/en/professional/quality-improvement/aha-quality-improvement-guidelines)\n"
+            responses.append(
+                "### Cardiovascular Risk Management\n"
+                "- **Management**: Encourage heart-healthy lifestyle changes such as reducing sodium intake, increasing physical activity, and maintaining a healthy weight.\n"
+                "- **Targets**: Maintain BP < 140/90 mmHg, monitor cholesterol annually.\n"
+                "- **Monitoring**: Consider annual check-ups to assess risk factors.\n"
             )
 
     elif condition == "Diabetes":
         if risk == "High":
-            return (
-                "### Diabetes Recommendations\n"
-                "- **Management**: \n"
-                "  - Implement a structured management plan:\n"
-                "    - **Diet**: Follow a Mediterranean diet with a focus on whole foods, aiming for <45% of calories from carbohydrates.\n"
-                "    - **Physical Activity**: 150 minutes of moderate-intensity exercise per week.\n"
-                "  - **Pharmacotherapy**: \n"
-                "    - Start Metformin if HbA1c > 6.5%. Add GLP-1 receptor agonists or SGLT2 inhibitors as needed based on individual characteristics.\n"
-                "  - **Targets**: \n"
-                "    - Aim for HbA1c <7% within 3-6 months; fasting glucose 80-130 mg/dL.\n"
-                "  - **Risk Factors to Avoid**: High-sugar diets, sedentary lifestyle, smoking.\n"
-                "  - **Follow-Up**: Every 3 months to adjust treatment.\n"
-                "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care) | [Diabetes Education Resources](https://www.diabeteseducator.org)\n"
+            responses.append(
+                "### Diabetes Risk Management\n"
+                "- **Management**: Recommend a structured diabetes management plan including dietary modifications, regular blood glucose monitoring, and potential initiation of pharmacotherapy.\n"
+                "- **Targets**: Achieve HbA1c < 7% within 3 months.\n"
+                "- **Risk Factors to Avoid**: Sugary foods, sedentary lifestyle.\n"
+                "- **Monitoring**: Schedule follow-ups every 3 months to adjust treatment based on glucose levels and HbA1c.\n"
+                "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
             )
         else:
-            return (
-                "### Diabetes Recommendations\n"
-                "- **Management**: \n"
-                "  - Advise on lifestyle changes:\n"
-                "    - **Diet**: Maintain a balanced diet and monitor carbohydrate intake.\n"
-                "    - **Physical Activity**: Aim for 30 minutes of moderate exercise most days of the week.\n"
-                "  - **Monitoring**: Annual HbA1c testing.\n"
-                "- **Resources**: [ADA Standards of Medical Care](https://www.diabetes.org/clinical-resources/standards-of-care)\n"
+            responses.append(
+                "### Diabetes Risk Management\n"
+                "- **Management**: Advise lifestyle changes including increased physical activity and dietary adjustments.\n"
+                "- **Targets**: Monitor HbA1c annually; aim for < 8%.\n"
+                "- **Monitoring**: Regular blood glucose monitoring and annual HbA1c testing.\n"
             )
 
     elif condition == "COPD":
         if risk == "High":
-            return (
-                "### COPD Recommendations\n"
-                "- **Management**: \n"
-                "  - Initiate smoking cessation programs immediately. Use pharmacotherapy as needed (e.g., varenicline).\n"
-                "  - **Pharmacotherapy**: Consider long-acting bronchodilators and inhaled corticosteroids.\n"
-                "  - **Targets**: \n"
-                "    - Achieve FEV1 improvement of at least 15% within 6 months of initiating therapy.\n"
-                "  - **Risk Factors to Avoid**: Smoking, air pollution, occupational exposures.\n"
-                "  - **Follow-Up**: Every 1-3 months to monitor lung function and exacerbations.\n"
-                "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/) | [COPD Exacerbation Management Guidelines](https://www.thoracic.org/professionals/care-standards/guidelines/copd-exacerbations.php)\n"
+            responses.append(
+                "### COPD Risk Management\n"
+                "- **Management**: Immediate initiation of smoking cessation programs and pulmonary rehabilitation. Consider medications such as bronchodilators and corticosteroids.\n"
+                "- **Targets**: Achieve FEV1 improvement of at least 5% in 6 months.\n"
+                "- **Risk Factors to Avoid**: Smoking, exposure to pollutants.\n"
+                "- **Monitoring**: Schedule regular follow-ups every 1-3 months.\n"
+                "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
             )
         else:
-            return (
-                "### COPD Recommendations\n"
-                "- **Management**: \n"
-                "  - Encourage smoking cessation and prescribe bronchodilators as needed.\n"
-                "  - **Monitoring**: Assess lung function annually; track symptoms regularly.\n"
-                "- **Resources**: [GOLD Guidelines](https://goldcopd.org/gold-reports/)\n"
+            responses.append(
+                "### COPD Risk Management\n"
+                "- **Management**: Encourage smoking cessation and prescribe bronchodilators as needed.\n"
+                "- **Targets**: Aim for FEV1 > 70% predicted.\n"
+                "- **Monitoring**: Biannual follow-ups to assess lung function.\n"
             )
 
     elif condition == "Asthma":
         if risk == "High":
-            return (
-                "### Asthma Recommendations\n"
-                "- **Management**: \n"
-                "  - Optimize controller medication (inhaled corticosteroids) and develop a comprehensive asthma action plan.\n"
-                "  - **Targets**: \n"
-                "    - Achieve symptom control with no more than 2 days of rescue inhaler use per week within 4-8 weeks.\n"
-                "  - **Risk Factors to Avoid**: Smoking, allergens (e.g., dust mites, pollen), air pollution.\n"
-                "  - **Follow-Up**: Every 1-3 months to reassess control and medication needs.\n"
-                "- **Resources**: [AAFA Guidelines](https://www.aafa.org) | [NHLBI Asthma Guidelines](https://www.nhlbi.nih.gov/health-topics/asthma)\n"
-            )
-        else:
-            return (
-                "### Asthma Recommendations\n"
-                "- **Management**: \n"
-                "  - Reinforce adherence to maintenance therapy and review the asthma action plan regularly.\n"
-                "  - **Monitoring**: Schedule follow-ups every 3-6 months.\n"
+            responses.append(
+                "### Asthma Risk Management\n"
+                "- **Management**: Optimize medication adherence by prescribing inhaled corticosteroids and educating patients about proper inhaler technique.\n"
+                "- **Targets**: Aim for < 2 days/week with symptoms and no nighttime awakenings.\n"
+                "- **Risk Factors to Avoid**: Allergens, tobacco smoke.\n"
+                "- **Monitoring**: Schedule visits every 1-3 months to reassess control.\n"
                 "- **Resources**: [AAFA Guidelines](https://www.aafa.org)\n"
             )
+        else:
+            responses.append(
+                "### Asthma Risk Management\n"
+                "- **Management**: Reinforce adherence to maintenance therapy and review the asthma action plan regularly.\n"
+                "- **Targets**: Maintain symptom control with < 2 rescue inhaler uses/week.\n"
+                "- **Monitoring**: Schedule follow-ups every 3-6 months.\n"
+            )
 
-# Create patient-friendly care plan based on risk levels
+    return "\n\n".join(responses)
+
+# Function to create patient-friendly care plans
 def patient_friendly_care_plan(results):
     care_plan = []
 
@@ -132,23 +111,23 @@ def patient_friendly_care_plan(results):
         if risk == "High":
             care_steps += (
                 "- **Step 1**: Schedule an appointment with your healthcare provider within the next week.\n"
-                "- **Step 2**: Start a heart-healthy diet focusing on fruits, vegetables, whole grains, and lean proteins. Here’s a helpful [video on heart-healthy diets](https://www.youtube.com/watch?v=example1).\n"
-                "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week. Here’s a [guide to starting exercise](https://www.youtube.com/watch?v=example2).\n"
-                "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised. Use this [blood pressure log template](https://example.com/log-template).\n"
-                "- **Step 5**: Join a support group or online community for motivation. Here’s a list of resources: [Support Groups](https://example.com/support-groups).\n"
+                "- **Step 2**: Start a heart-healthy diet, focusing on fruits, vegetables, whole grains, and lean proteins.\n"
+                "- **Step 3**: Increase your physical activity to at least 150 minutes of moderate exercise per week.\n"
+                "- **Step 4**: Monitor your blood pressure and cholesterol levels as advised.\n"
+                "- **Step 5**: Join a support group or online community for motivation.\n"
             )
         elif risk == "Moderate":
             care_steps += (
-                "- **Step 1**: Follow up with your healthcare provider within the next month.\n"
-                "- **Step 2**: Continue a balanced diet and stay active. Consider keeping a food diary.\n"
+                "- **Step 1**: Schedule a follow-up appointment within the next month.\n"
+                "- **Step 2**: Continue a balanced diet and stay active.\n"
                 "- **Step 3**: Aim to get at least 30 minutes of exercise most days.\n"
                 "- **Step 4**: Monitor your symptoms and report any changes to your provider.\n"
-                "- **Step 5**: Educate yourself about your condition using reliable sources like the [CDC](https://www.cdc.gov) or [Mayo Clinic](https://www.mayoclinic.org).\n"
+                "- **Step 5**: Educate yourself about your condition using reliable sources.\n"
             )
-
+        
         care_plan.append(care_steps)
 
-    return "\n".join(care_plan)
+    return "\n\n".join(care_plan)
 
 # Function to plot graphs for Unified Care Plan
 def plot_unified_care_plan(condition, risk):
@@ -182,40 +161,41 @@ def plot_unified_care_plan(condition, risk):
             ylabel = "FEV1 (%)"
     elif condition == "Asthma":
         if risk == "High":
-            y = [3, 2.5, 2, 1.5, 1, 0.5]  # Asthma control targets
+            y = [3, 2.5, 2, 1.5, 1, 0.5]  # Asthma control metrics
             title = "Asthma Risk Management"
-            ylabel = "Days with Symptoms/Week"
+            ylabel = "Symptoms (Days/Week)"
         else:
             y = [2, 1.5, 1, 0.5, 0, 0]
             title = "Asthma Monitoring"
-            ylabel = "Days with Symptoms/Week"
+            ylabel = "Symptoms (Days/Week)"
 
-    plt.figure(figsize=(10, 5))
+    plt.figure(figsize=(10, 6))
     plt.plot(x, y, marker='o')
-    plt.xticks(x, ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'])
     plt.title(title)
-    plt.xlabel('Time Frame')
+    plt.xlabel("Time (Months)")
     plt.ylabel(ylabel)
+    plt.xticks(x)
     plt.grid()
     st.pyplot(plt)
 
-# Streamlit app
-st.title("Chronic Disease Risk Assessment Tool")
+# Initialize Streamlit app
+st.title("Chronic Care Management Tool")
+st.write("This application helps assess risks for various chronic conditions and provides personalized care plans.")
 
-# Initialize session state
+# Initialize session state for results
 if 'results' not in st.session_state:
     st.session_state['results'] = {}
 
-# Tabs for different risk assessments
+# Risk Assessment Tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan"])
 
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
-    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="cardio_age")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
     systolic_bp = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80, max_value=200, value=120, key="systolic_bp")
+    cholesterol = st.number_input("Cholesterol (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
     smoker = st.checkbox("Smoker", key="smoker")
-    cholesterol = st.number_input("Cholesterol Level (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
 
     if st.button("Calculate Cardiovascular Risk"):
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
@@ -274,9 +254,10 @@ with tab5:
         st.write("### Suggested Patient-Friendly Care Plan")
         patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
         st.write(patient_care_plan)
-        
+
+        # Plot unified care plan for each condition based on risk level
         for condition, risk in st.session_state['results'].items():
-            st.subheader(f"Visual Care Plan for {condition} - Risk Level: {risk}")
+            st.write(f"#### Monitoring Graph for {condition} - Risk Level: {risk}")
             plot_unified_care_plan(condition, risk)
 
 # Educational Resources Section
@@ -287,3 +268,11 @@ st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
 st.write("- [American Heart Association (AHA)](https://www.heart.org)")
 st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
 st.write("- [Asthma and Allergy Foundation of America (AAFA)](https://www.aafa.org)")
+
+# Footer Section
+st.write("---")
+st.header("Feedback and Support")
+st.write("We value your feedback! Please let us know how we can improve this application or if you need further assistance.")
+feedback = st.text_area("Your Feedback:", height=100)
+if st.button("Submit Feedback"):
+    st.success("Thank you for your feedback!")
