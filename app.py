@@ -1,23 +1,26 @@
 import streamlit as st
-import webbrowser
 
 # Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
+    # Example logic for cardiovascular risk calculation
     if smoker and systolic_bp > 140:
         return "High"
     return "Moderate"
 
 def calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c):
+    # Example logic for diabetes risk calculation
     if fasting_glucose > 126 or hba1c > 6.5:
         return "High"
     return "Moderate"
 
 def calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year):
+    # Example logic for COPD risk calculation
     if smoking_years > 20 and exacerbations_last_year > 2:
         return "High"
     return "Moderate"
 
 def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count):
+    # Example logic for asthma risk calculation
     if frequency_of_symptoms > 4 or nighttime_symptoms > 2:
         return "High"
     return "Moderate"
@@ -84,16 +87,6 @@ def ai_assistant_response(results):
     
     return "\n\n".join(combined_response)
 
-# Educational Resource Links
-def get_educational_resources(condition):
-    resources = {
-        "Cardiovascular": "https://medlineplus.gov/cardiovasculardiseases.html",
-        "Diabetes": "https://medlineplus.gov/diabetes.html",
-        "COPD": "https://medlineplus.gov/copd.html",
-        "Asthma": "https://medlineplus.gov/asthma.html",
-    }
-    return resources.get(condition, None)
-
 # Initialize Streamlit app
 st.title("Chronic Care Management Tool")
 st.write("This application helps assess risks for various chronic conditions and provides personalized care plans.")
@@ -117,10 +110,6 @@ with tab1:
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
-        
-        # Educational Resource Link
-        resource_link = get_educational_resources("Cardiovascular")
-        st.markdown(f"[Learn more about Cardiovascular Diseases]({resource_link})", unsafe_allow_html=True)
 
 # Diabetes Risk Tab
 with tab2:
@@ -136,16 +125,12 @@ with tab2:
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
 
-        # Educational Resource Link
-        resource_link = get_educational_resources("Diabetes")
-        st.markdown(f"[Learn more about Diabetes]({resource_link})", unsafe_allow_html=True)
-
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
     smoking_years = st.number_input("Years Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
     age_copd = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_copd")
-    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_copd")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
     exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
     if st.button("Calculate COPD Risk"):
@@ -153,15 +138,11 @@ with tab3:
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
 
-        # Educational Resource Link
-        resource_link = get_educational_resources("COPD")
-        st.markdown(f"[Learn more about COPD]({resource_link})", unsafe_allow_html=True)
-
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.number_input("Symptoms (per week)", min_value=0, max_value=14, value=2, key="frequency_of_symptoms")
-    nighttime_symptoms = st.number_input("Nighttime Symptoms (per month)", min_value=0, max_value=10, value=1, key="nighttime_symptoms")
+    frequency_of_symptoms = st.slider("Frequency of Symptoms (per week)", min_value=0, max_value=14, value=2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.slider("Nighttime Symptoms (per month)", min_value=0, max_value=10, value=1, key="nighttime_symptoms")
     inhaler_use = st.number_input("Inhaler Use (times/week)", min_value=0, max_value=14, value=2, key="inhaler_use")
     fev1_asthma = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_asthma")
     eosinophil_count = st.number_input("Eosinophil Count (cells/µL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
@@ -170,10 +151,6 @@ with tab4:
         asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
         st.write(f"**Asthma Risk Level**: {asthma_risk}")
         st.session_state['results']["Asthma"] = asthma_risk
-
-        # Educational Resource Link
-        resource_link = get_educational_resources("Asthma")
-        st.markdown(f"[Learn more about Asthma]({resource_link})", unsafe_allow_html=True)
 
 # Unified Care Plan Tab
 with tab5:
