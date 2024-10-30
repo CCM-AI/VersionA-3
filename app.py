@@ -138,7 +138,11 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["< 130/80 mmHg", "< 100 mg/dL", "150 minutes/week"],
                 "Time Frame": ["6 months", "6 months", "Ongoing"],
                 "Monitoring": ["Every 3 months", "Every 3 months", "Weekly check-ins"],
-                "Notes": ["Diet, exercise, medication", "Diet, possibly medication", "Join a support group"]
+                "Notes": [
+                    "Eat more fruits and vegetables.",
+                    "Limit salt and saturated fats.",
+                    "Schedule regular walks or exercises."
+                ]
             }
         else:
             data = {
@@ -146,7 +150,10 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["< 140/90 mmHg", "30 minutes/day"],
                 "Time Frame": ["Ongoing", "Ongoing"],
                 "Monitoring": ["Annually", "Weekly check-ins"],
-                "Notes": ["Diet and lifestyle", "Regular exercise"]
+                "Notes": [
+                    "Maintain a balanced diet.",
+                    "Engage in regular physical activity."
+                ]
             }
 
     elif condition == "Diabetes":
@@ -156,7 +163,11 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["< 7%", "< 126 mg/dL", "150 minutes/week"],
                 "Time Frame": ["3 months", "3 months", "Ongoing"],
                 "Monitoring": ["Every 3 months", "Every 3 months", "Weekly check-ins"],
-                "Notes": ["Diet, medication", "Monitor daily", "Join a support group"]
+                "Notes": [
+                    "Follow a diabetes meal plan.",
+                    "Monitor blood sugar levels daily.",
+                    "Incorporate regular physical activity."
+                ]
             }
         else:
             data = {
@@ -164,7 +175,10 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["< 8%", "30 minutes/day"],
                 "Time Frame": ["Annual", "Ongoing"],
                 "Monitoring": ["Annually", "Weekly check-ins"],
-                "Notes": ["Diet and lifestyle", "Regular exercise"]
+                "Notes": [
+                    "Continue healthy eating habits.",
+                    "Stay active and maintain a routine."
+                ]
             }
 
     elif condition == "COPD":
@@ -174,7 +188,11 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["> 70%", "< 2 per year"],
                 "Time Frame": ["Ongoing", "Ongoing"],
                 "Monitoring": ["Every 1-3 months", "Every visit"],
-                "Notes": ["Pulmonary rehab, smoking cessation", "Avoid triggers"]
+                "Notes": [
+                    "Participate in pulmonary rehab.",
+                    "Avoid smoking and secondhand smoke.",
+                    "Stay away from allergens."
+                ]
             }
         else:
             data = {
@@ -182,17 +200,24 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["> 70%"],
                 "Time Frame": ["Ongoing"],
                 "Monitoring": ["Biannually"],
-                "Notes": ["Avoid smoking"]
+                "Notes": [
+                    "Avoid smoking.",
+                    "Use prescribed inhalers as directed."
+                ]
             }
 
     elif condition == "Asthma":
         if risk == "High":
             data = {
-                "Target": ["Symptom Control", "Inhaler Use"],
-                "Goal": ["< 2 days/week", "Use as needed"],
+                "Target": ["Symptom Control", "Medication Adherence"],
+                "Goal": ["< 2 uses/week", "100%"],
                 "Time Frame": ["Ongoing", "Ongoing"],
-                "Monitoring": ["Monthly", "As needed"],
-                "Notes": ["Adhere to asthma plan", "Avoid triggers"]
+                "Monitoring": ["Every 1-3 months", "Each visit"],
+                "Notes": [
+                    "Adhere to asthma action plan.",
+                    "Identify and avoid triggers.",
+                    "Carry rescue inhaler at all times."
+                ]
             }
         else:
             data = {
@@ -200,7 +225,10 @@ def create_unified_care_plan_table(condition, risk):
                 "Goal": ["< 2 uses/week"],
                 "Time Frame": ["Ongoing"],
                 "Monitoring": ["Every 3-6 months"],
-                "Notes": ["Continue medication"]
+                "Notes": [
+                    "Continue daily controller medication.",
+                    "Avoid known triggers."
+                ]
             }
 
     return pd.DataFrame(data)
