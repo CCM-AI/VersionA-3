@@ -137,6 +137,15 @@ with st.expander("AI Assistant (Multidisciplinary Team) for Healthcare Provider 
         else:
             st.write("Please complete risk assessments in previous tabs first.")
 
+# Educational Resources Section
+st.write("---")
+st.header("Educational Resources")
+st.write("Here are some trusted resources for chronic disease management:")
+st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
+st.write("- [American Heart Association (AHA)](https://www.heart.org)")
+st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
+st.write("- [Asthma and Allergy Foundation of America (AAFA)](https://www.aafa.org)")
+
 # Footer Section
 st.write("---")
 st.header("Feedback and Support")
