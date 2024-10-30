@@ -149,6 +149,10 @@ with tab1:
         st.session_state['results']["Cardiovascular"] = cardio_risk
         st.write(ai_assistant_response("Cardiovascular", cardio_risk))
 
+        # Educational Resources
+        st.write("### Educational Resources for Healthcare Providers")
+        st.write("- [AHA Guidelines on Cardiovascular Disease Management (PDF)](https://www.heart.org/-/media/files/professional/cardiovascular-disease/2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women.pdf)")
+
 # Diabetes Risk Tab
 with tab2:
     st.header("Diabetes Risk Assessment")
@@ -164,6 +168,10 @@ with tab2:
         st.session_state['results']["Diabetes"] = diabetes_risk
         st.write(ai_assistant_response("Diabetes", diabetes_risk))
 
+        # Educational Resources
+        st.write("### Educational Resources for Healthcare Providers")
+        st.write("- [ADA Standards of Medical Care in Diabetes (PDF)](https://diabetesjournals.org/care/article/43/Supplement_1/S1/Standards-of-Medical-Care-in-Diabetes-2020)")
+
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
@@ -177,6 +185,10 @@ with tab3:
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
         st.write(ai_assistant_response("COPD", copd_risk))
+
+        # Educational Resources
+        st.write("### Educational Resources for Healthcare Providers")
+        st.write("- [GOLD Guidelines for the Management of COPD (PDF)](https://goldcopd.org/wp-content/uploads/2020/11/GOLD-2020-Report-Updated-2020-11-12-3.pdf)")
 
 # Asthma Risk Tab
 with tab4:
@@ -193,6 +205,10 @@ with tab4:
         st.session_state['results']["Asthma"] = asthma_risk
         st.write(ai_assistant_response("Asthma", asthma_risk))
 
+        # Educational Resources
+        st.write("### Educational Resources for Healthcare Providers")
+        st.write("- [AAFA Asthma Management Guidelines (PDF)](https://aafa.org/media/2356/aafa-asthma-management-guidelines-2020.pdf)")
+
 # Unified Care Plan Tab
 with tab5:
     st.header("Unified Care Plan")
@@ -200,15 +216,6 @@ with tab5:
         st.write("### Suggested Patient-Friendly Care Plan")
         patient_care_plan = patient_friendly_care_plan(st.session_state['results'])
         st.write(patient_care_plan)
-
-# Educational Resources Section
-st.write("---")
-st.header("Educational Resources")
-st.write("Here are some trusted resources for chronic disease management:")
-st.write("- [American Diabetes Association (ADA)](https://www.diabetes.org)")
-st.write("- [American Heart Association (AHA)](https://www.heart.org)")
-st.write("- [Global Initiative for Chronic Obstructive Lung Disease (GOLD)](https://goldcopd.org)")
-st.write("- [Asthma and Allergy Foundation of America (AAFA)](https://www.aafa.org)")
 
 # Footer Section
 st.write("---")
