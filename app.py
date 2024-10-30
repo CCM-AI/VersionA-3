@@ -1,116 +1,126 @@
 import streamlit as st
+import webbrowser
 
-# Placeholder functions for risk algorithms
+# Sample risk calculation functions (to be implemented according to your guidelines)
 def calculate_cardio_risk(age, systolic_bp, smoker, cholesterol):
-    risk_score = (age * 0.1) + (systolic_bp * 0.05) + (10 if smoker else 0) + (cholesterol * 0.02)
-    return "High" if risk_score > 15 else "Moderate" if risk_score > 10 else "Low"
+    if smoker and systolic_bp > 140:
+        return "High"
+    return "Moderate"
 
 def calculate_diabetes_risk(bmi, age, family_history, fasting_glucose, hba1c):
-    risk_score = (bmi * 0.3) + (age * 0.1) + (10 if family_history else 0) + (fasting_glucose * 0.02) + (hba1c * 0.1)
-    return "High" if risk_score > 20 else "Moderate" if risk_score > 15 else "Low"
+    if fasting_glucose > 126 or hba1c > 6.5:
+        return "High"
+    return "Moderate"
 
 def calculate_copd_risk(smoking_years, age, fev1, exacerbations_last_year):
-    risk_score = (smoking_years * 0.5) + (age * 0.2) - (fev1 * 0.1) + (exacerbations_last_year * 5)
-    return "High" if risk_score > 25 else "Moderate" if risk_score > 15 else "Low"
+    if smoking_years > 20 and exacerbations_last_year > 2:
+        return "High"
+    return "Moderate"
 
 def calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1, eosinophil_count):
-    risk_score = (frequency_of_symptoms * 2) + (nighttime_symptoms * 3) + (inhaler_use * 1.5) - (fev1 * 0.1) + (eosinophil_count * 0.2)
-    return "High" if risk_score > 20 else "Moderate" if risk_score > 10 else "Low"
+    if frequency_of_symptoms > 4 or nighttime_symptoms > 2:
+        return "High"
+    return "Moderate"
 
-# Enhanced AI Assistant response with MDT support and references
-def ai_assistant_response(query, results):
-    response = ""
-    high_risk_conditions = [condition for condition, risk in results.items() if risk == "High"]
-    moderate_risk_conditions = [condition for condition, risk in results.items() if risk == "Moderate"]
+# AI Assistant Function with Evidence-Based Protocols
+def ai_assistant_response(results):
+    protocols = {
+        "Cardiovascular": {
+            "High": (
+                "1. **Lifestyle Modifications**: Implement a heart-healthy diet (e.g., DASH diet), exercise regularly (at least 150 minutes/week), "
+                "and achieve a healthy weight. \n"
+                "2. **Medication Management**: Consider starting antihypertensive medication, statins, and possibly antiplatelet therapy based on risk factors per AHA guidelines. \n"
+                "3. **Monitoring**: Regular blood pressure and lipid profile checks every 3-6 months."
+            ),
+            "Moderate": (
+                "1. **Lifestyle Changes**: Encourage a balanced diet rich in fruits, vegetables, and whole grains. \n"
+                "2. **Follow-Up**: Reassess risk factors annually and monitor blood pressure and cholesterol. \n"
+                "3. **Education**: Provide resources on smoking cessation and stress management."
+            )
+        },
+        "Diabetes": {
+            "High": (
+                "1. **Dietary Changes**: Refer to a registered dietitian for personalized meal planning. Focus on low glycemic index foods. \n"
+                "2. **Medication**: Start metformin and consider additional agents based on patient-specific factors. \n"
+                "3. **Monitoring**: Tight glucose control (HbA1c < 7%) with quarterly checks and regular foot, eye, and kidney assessments as per ADA guidelines."
+            ),
+            "Moderate": (
+                "1. **Dietary Modifications**: Recommend regular meals with balanced carbohydrates. \n"
+                "2. **Exercise**: Encourage at least 150 minutes of moderate activity per week. \n"
+                "3. **Follow-Up**: Monitor HbA1c every 6 months and educate on recognizing symptoms of hypoglycemia."
+            )
+        },
+        "COPD": {
+            "High": (
+                "1. **Smoking Cessation**: Immediate cessation program and consider pharmacotherapy (e.g., varenicline). \n"
+                "2. **Pulmonary Rehabilitation**: Referral to a program that includes exercise training, health education, and breathing techniques. \n"
+                "3. **Medications**: Long-acting bronchodilators and inhaled corticosteroids as per GOLD guidelines. \n"
+                "4. **Monitoring**: Regular follow-up every 3 months to assess lung function and exacerbation management."
+            ),
+            "Moderate": (
+                "1. **Smoking Cessation**: Strongly advise against smoking and consider resources for quitting. \n"
+                "2. **Medications**: Prescribe short-acting bronchodilators as needed. \n"
+                "3. **Education**: Provide inhaler technique education and action plan for exacerbations."
+            )
+        },
+        "Asthma": {
+            "High": (
+                "1. **Personalized Asthma Action Plan**: Develop and provide education on how to use rescue inhalers effectively. \n"
+                "2. **Controller Medications**: Initiate daily inhaled corticosteroids or leukotriene receptor antagonists. \n"
+                "3. **Follow-Up**: Regular visits every 1-3 months until asthma is well controlled, then reassess every 3-6 months."
+            ),
+            "Moderate": (
+                "1. **Education**: Teach the patient about recognizing and avoiding triggers. \n"
+                "2. **Medication**: Assess the need for daily medication based on symptom frequency. \n"
+                "3. **Monitoring**: Use peak flow meters to monitor lung function at home."
+            )
+        }
+    }
 
-    if high_risk_conditions or moderate_risk_conditions:
-        response += "Here’s a detailed, multidisciplinary care plan based on current evidence:\n\n"
+    combined_response = []
+    for condition, risk in results.items():
+        if condition in protocols:
+            combined_response.append(f"{condition} ({risk} Risk):\n{protocols[condition][risk]}")
+    
+    return "\n\n".join(combined_response)
 
-        for condition, risk in results.items():
-            if risk == "High":
-                response += f"**{condition} (High Risk):**\n"
-                if condition == "Cardiovascular":
-                    response += "- **Primary Care Physician**: Immediate review of medication, adjust therapy, and consider frequent specialist referrals.\n"
-                    response += "- **Nurse**: Weekly patient check-ins to monitor adherence and symptoms.\n"
-                    response += "- **Dietitian**: Design a personalized nutrition plan that supports condition management.\n"
-                    response += "- **References**: AHA/ACC 2024 Guidelines for Heart Disease Management.\n\n"
-                elif condition == "Diabetes":
-                    response += "- **Endocrinologist**: Intensive insulin therapy and continuous glucose monitoring.\n"
-                    response += "- **Nurse**: Monthly visits to monitor HbA1c and blood glucose levels.\n"
-                    response += "- **Dietitian**: Develop a comprehensive dietary plan.\n"
-                    response += "- **References**: ADA Standards of Medical Care in Diabetes 2024.\n\n"
-                elif condition == "COPD":
-                    response += "- **Respiratory Therapist**: Implement pulmonary rehabilitation, monitor inhaler techniques.\n"
-                    response += "- **Nurse**: Weekly assessments to track symptoms and medication adherence.\n"
-                    response += "- **References**: GOLD 2024 Guidelines for COPD Management.\n\n"
-                elif condition == "Asthma":
-                    response += "- **Pulmonologist**: Evaluate and adjust asthma medications based on symptom control.\n"
-                    response += "- **Nurse**: Frequent monitoring of asthma action plans.\n"
-                    response += "- **References**: GINA 2024 Guidelines for Asthma Management.\n\n"
-            elif risk == "Moderate":
-                response += f"**{condition} (Moderate Risk):**\n"
-                if condition == "Cardiovascular":
-                    response += "- **Primary Care Physician**: Monthly reviews of patient status and lifestyle modifications.\n"
-                    response += "- **Nurse**: Educate on symptom tracking, quarterly visits to reinforce care plan.\n"
-                    response += "- **References**: AHA/ACC 2024 Guidelines for Heart Disease Management.\n\n"
-                elif condition == "Diabetes":
-                    response += "- **Endocrinologist**: Focus on lifestyle changes and regular blood glucose monitoring.\n"
-                    response += "- **Nurse**: Quarterly follow-ups to assess treatment efficacy.\n"
-                    response += "- **References**: ADA Standards of Medical Care in Diabetes 2024.\n\n"
-                elif condition == "COPD":
-                    response += "- **Respiratory Therapist**: Reinforce inhaler technique and symptom tracking.\n"
-                    response += "- **Nurse**: Monthly check-ins to assess lung function and medication adherence.\n"
-                    response += "- **References**: GOLD 2024 Guidelines for COPD Management.\n\n"
-                elif condition == "Asthma":
-                    response += "- **Pulmonologist**: Regular assessment of medication effectiveness and symptom control.\n"
-                    response += "- **Nurse**: Ensure proper technique with inhalers and adherence to medication.\n"
-                    response += "- **References**: GINA 2024 Guidelines for Asthma Management.\n\n"
+# Educational Resource Links
+def get_educational_resources(condition):
+    resources = {
+        "Cardiovascular": "https://medlineplus.gov/cardiovasculardiseases.html",
+        "Diabetes": "https://medlineplus.gov/diabetes.html",
+        "COPD": "https://medlineplus.gov/copd.html",
+        "Asthma": "https://medlineplus.gov/asthma.html",
+    }
+    return resources.get(condition, None)
 
-        response += "\nPlease consult specific guidelines for detailed recommendations."
+# Initialize Streamlit app
+st.title("Chronic Care Management Tool")
+st.write("This application helps assess risks for various chronic conditions and provides personalized care plans.")
 
-    return response
-
-# Initialize session state to store results
+# Initialize session state for results
 if 'results' not in st.session_state:
     st.session_state['results'] = {}
 
-# Streamlit App Layout
-st.set_page_config(page_title="Chronic Care Management", layout="wide")
-st.title("Chronic Care Management Dashboard")
-st.write("This application helps healthcare providers assess and manage chronic conditions effectively to improve patient outcomes and quality of life.")
-
-# Introduction Section
-st.header("Introduction")
-st.write("""
-    Chronic conditions such as cardiovascular diseases, diabetes, COPD, and asthma require continuous management and follow-up. 
-    This application aims to assist healthcare providers in evaluating risk levels for multiple chronic conditions, 
-    creating personalized care plans, and monitoring patient outcomes effectively.
-""")
-
-# User Instructions
-st.header("How to Use This Application")
-st.write("""
-1. Navigate through the tabs to complete risk assessments for each condition.
-2. Based on your inputs, the application will provide a risk level and personalized care plan.
-3. Use the AI Assistant for additional guidance and references.
-4. The Unified Care Plan will summarize the management strategies for all conditions.
-""")
-
-# Define tabs for each condition and the AI Assistant
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan", "AI Assistant"])
+# Risk Assessment Tabs
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cardiovascular Risk", "Diabetes Risk", "COPD Risk", "Asthma Risk", "Unified Care Plan"])
 
 # Cardiovascular Risk Tab
 with tab1:
     st.header("Cardiovascular Risk Assessment")
-    age = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_cardio")
-    systolic_bp = st.slider("Systolic Blood Pressure (mmHg)", 90, 200, 120, key="systolic_bp")
-    cholesterol = st.slider("Total Cholesterol (mg/dL)", 100, 300, 200, key="cholesterol")
+    age = st.number_input("Age", min_value=18, max_value=120, value=50, key="age")
+    systolic_bp = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80, max_value=200, value=120, key="systolic_bp")
+    cholesterol = st.number_input("Cholesterol (mg/dL)", min_value=150, max_value=300, value=200, key="cholesterol")
     smoker = st.checkbox("Smoker", key="smoker")
 
     if st.button("Calculate Cardiovascular Risk"):
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
+        
+        # Educational Resource Link
+        resource_link = get_educational_resources("Cardiovascular")
+        st.markdown(f"[Learn more about Cardiovascular Diseases]({resource_link})", unsafe_allow_html=True)
 
 # Diabetes Risk Tab
 with tab2:
@@ -126,12 +136,16 @@ with tab2:
         st.write(f"**Diabetes Risk Level**: {diabetes_risk}")
         st.session_state['results']["Diabetes"] = diabetes_risk
 
+        # Educational Resource Link
+        resource_link = get_educational_resources("Diabetes")
+        st.markdown(f"[Learn more about Diabetes]({resource_link})", unsafe_allow_html=True)
+
 # COPD Risk Tab
 with tab3:
     st.header("COPD Risk Assessment")
     smoking_years = st.number_input("Years Smoking", min_value=0, max_value=50, value=10, key="smoking_years")
     age_copd = st.number_input("Age", min_value=18, max_value=100, value=30, key="age_copd")
-    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1")
+    fev1 = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_copd")
     exacerbations_last_year = st.number_input("Exacerbations Last Year", min_value=0, max_value=10, value=1, key="exacerbations_last_year")
 
     if st.button("Calculate COPD Risk"):
@@ -139,96 +153,37 @@ with tab3:
         st.write(f"**COPD Risk Level**: {copd_risk}")
         st.session_state['results']["COPD"] = copd_risk
 
+        # Educational Resource Link
+        resource_link = get_educational_resources("COPD")
+        st.markdown(f"[Learn more about COPD]({resource_link})", unsafe_allow_html=True)
+
 # Asthma Risk Tab
 with tab4:
     st.header("Asthma Risk Assessment")
-    frequency_of_symptoms = st.slider("Frequency of Symptoms (0-7 days/week)", 0, 7, 2, key="frequency_of_symptoms")
-    nighttime_symptoms = st.slider("Nighttime Symptoms (0-7 days/week)", 0, 7, 1, key="nighttime_symptoms")
-    inhaler_use = st.slider("Inhaler Use (0-7 days/week)", 0, 7, 2, key="inhaler_use")
-    fev1_asthma = st.number_input("FEV1 (%) - Asthma", min_value=20, max_value=100, value=80, key="fev1_asthma")
-    eosinophil_count = st.number_input("Eosinophil Count (cells/μL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
+    frequency_of_symptoms = st.number_input("Symptoms (per week)", min_value=0, max_value=14, value=2, key="frequency_of_symptoms")
+    nighttime_symptoms = st.number_input("Nighttime Symptoms (per month)", min_value=0, max_value=10, value=1, key="nighttime_symptoms")
+    inhaler_use = st.number_input("Inhaler Use (times/week)", min_value=0, max_value=14, value=2, key="inhaler_use")
+    fev1_asthma = st.number_input("FEV1 (%)", min_value=20, max_value=100, value=80, key="fev1_asthma")
+    eosinophil_count = st.number_input("Eosinophil Count (cells/µL)", min_value=0, max_value=1000, value=300, key="eosinophil_count")
 
     if st.button("Calculate Asthma Risk"):
         asthma_risk = calculate_asthma_risk(frequency_of_symptoms, nighttime_symptoms, inhaler_use, fev1_asthma, eosinophil_count)
         st.write(f"**Asthma Risk Level**: {asthma_risk}")
         st.session_state['results']["Asthma"] = asthma_risk
 
+        # Educational Resource Link
+        resource_link = get_educational_resources("Asthma")
+        st.markdown(f"[Learn more about Asthma]({resource_link})", unsafe_allow_html=True)
+
 # Unified Care Plan Tab
 with tab5:
     st.header("Unified Care Plan")
     if st.session_state['results']:
-        for condition, risk in st.session_state['results'].items():
-            st.write(f"### {condition} - {risk} Risk")
-            if risk == "High":
-                st.write(f"- **{condition} - High Risk**: Intensive care plan with evidence-based guidelines:")
-                if condition == "Cardiovascular":
-                    st.write("- **Management Plan**: Aggressive management with medication adjustments and close monitoring.\n"
-                             "- **Follow-Up**: Weekly visits for blood pressure and symptom monitoring.\n"
-                             "- **Expected Outcomes**: Improved symptom management, reduced hospitalizations, and enhanced quality of life.")
-                elif condition == "Diabetes":
-                    st.write("- **Management Plan**: Intensive lifestyle modification with regular glucose monitoring and medication management.\n"
-                             "- **Follow-Up**: Monthly assessments of HbA1c and lifestyle factors.\n"
-                             "- **Expected Outcomes**: Stabilized blood glucose levels and prevention of complications.")
-                elif condition == "COPD":
-                    st.write("- **Management Plan**: Ensure adherence to inhaler techniques and provide pulmonary rehabilitation.\n"
-                             "- **Follow-Up**: Monthly visits to evaluate lung function and adjust therapy as needed.\n"
-                             "- **Expected Outcomes**: Reduced exacerbations and improved lung function.")
-                elif condition == "Asthma":
-                    st.write("- **Management Plan**: Daily monitoring of symptoms with an asthma action plan.\n"
-                             "- **Follow-Up**: Regular visits every three months to assess control and adjust medications.\n"
-                             "- **Expected Outcomes**: Well-controlled asthma and improved quality of life.")
-            elif risk == "Moderate":
-                st.write(f"- **{condition} - Moderate Risk**: Intermediate care plan with CCM recommendations:")
-                if condition == "Cardiovascular":
-                    st.write("- **Management Plan**: Lifestyle changes with medication review and adjustment as needed.\n"
-                             "- **Follow-Up**: Bi-monthly visits to track health status.\n"
-                             "- **Expected Outcomes**: Improved risk factors and prevention of progression.")
-                elif condition == "Diabetes":
-                    st.write("- **Management Plan**: Encourage physical activity and dietary changes with medication adjustments.\n"
-                             "- **Follow-Up**: Quarterly HbA1c monitoring and lifestyle counseling.\n"
-                             "- **Expected Outcomes**: Improved metabolic control and prevention of complications.")
-                elif condition == "COPD":
-                    st.write("- **Management Plan**: Implement a smoking cessation program and monitor symptoms.\n"
-                             "- **Follow-Up**: Every two months to assess adherence and lung function.\n"
-                             "- **Expected Outcomes**: Stabilization of lung function and reduced symptoms.")
-                elif condition == "Asthma":
-                    st.write("- **Management Plan**: Regular monitoring and education on trigger management.\n"
-                             "- **Follow-Up**: Bi-monthly follow-ups to assess symptom control and medication effectiveness.\n"
-                             "- **Expected Outcomes**: Decreased exacerbations and improved asthma control.")
-            else:
-                st.write(f"- **{condition} - Low Risk**: Preventive and maintenance plan based on CCM recommendations.")
-                if condition == "Cardiovascular":
-                    st.write("- **Management Plan**: Maintain healthy lifestyle practices and routine monitoring.\n"
-                             "- **Follow-Up**: Annual check-ups for preventive care.\n"
-                             "- **Expected Outcomes**: Continued health maintenance and prevention of future risk.")
-                elif condition == "Diabetes":
-                    st.write("- **Management Plan**: Routine monitoring of glucose levels and lifestyle practices.\n"
-                             "- **Follow-Up**: Annual check-up to assess health status.\n"
-                             "- **Expected Outcomes**: Effective long-term management of health status.")
-                elif condition == "COPD":
-                    st.write("- **Management Plan**: Encourage regular exercise and pulmonary hygiene.\n"
-                             "- **Follow-Up**: Annual assessments of lung function.\n"
-                             "- **Expected Outcomes**: Maintenance of lung health and prevention of complications.")
-                elif condition == "Asthma":
-                    st.write("- **Management Plan**: Adhere to preventive medication and avoid triggers.\n"
-                             "- **Follow-Up**: Annual assessments of asthma control and medication needs.\n"
-                             "- **Expected Outcomes**: Effective asthma management with reduced risk of exacerbations.")
+        care_plan = ai_assistant_response(st.session_state['results'])
+        st.write("**Personalized Care Plan**:\n" + care_plan)
+    else:
+        st.write("Please complete risk assessments in previous tabs first.")
 
-# AI Assistant Tab
-with tab6:
-    st.header("AI Assistant (Multidisciplinary Team) for Healthcare Provider Guidance")
-    query = st.text_input("Ask the AI Assistant about risk management, personalized care, or guidelines:")
-    if st.button("Get AI Assistance"):
-        if st.session_state['results']:
-            ai_response = ai_assistant_response(query, st.session_state['results'])
-            st.write(ai_response)
-        else:
-            st.write("Please complete risk assessments in previous tabs first.")
-
-# Footer Section
-st.write("---")
-st.header("Feedback and Support")
-st.write("We value your feedback! Please let us know how we can improve this application or if you need further assistance.")
-feedback = st.text_area("Your Feedback:", height=100)
-if st.button("Submit Feedback"):
-    st.success("Thank you for your feedback!")
+# Run the Streamlit app
+if __name__ == "__main__":
+    st.run()
