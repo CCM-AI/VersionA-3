@@ -147,11 +147,10 @@ with tab1:
         cardio_risk = calculate_cardio_risk(age, systolic_bp, smoker, cholesterol)
         st.write(f"**Cardiovascular Risk Level**: {cardio_risk}")
         st.session_state['results']["Cardiovascular"] = cardio_risk
-        st.write(ai_assistant_response("Cardiovascular", cardio_risk))
 
         # Educational Resources
         st.write("### Educational Resources for Healthcare Providers")
-        st.write("- [AHA Guidelines on Cardiovascular Disease Management (PDF)](https://www.heart.org/-/media/files/professional/cardiovascular-disease/2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women-2021-aha-guidelines-on-the-prevention-of-cardiovascular-disease-in-women.pdf)")
+        st.write("- [AHA Guidelines on Cardiovascular Disease Management (PDF)](https://www.heart.org/-/media/Files/Health-Topics/Hypertension/2022-Hypertension-Clinical-Practice-Guidelines-Executive-Summary.pdf)")
 
 # Diabetes Risk Tab
 with tab2:
